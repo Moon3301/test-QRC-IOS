@@ -1,0 +1,14 @@
+﻿@page
+@model ForgotModel
+@{
+    Layout = "_Layout.cshtml";
+    ViewData["Title"] = "Contraseña Olvidada.";
+}
+
+<form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+        <label asp-for="Input.Email"><i class="icon-mail icon-1x"></i>Email</label>
+        <span asp-validation-for="Input.Email" class="error"></span>
+        <input asp-for="Input.Email"/>
+    <button type="submit">Enviar</button>
+</form>

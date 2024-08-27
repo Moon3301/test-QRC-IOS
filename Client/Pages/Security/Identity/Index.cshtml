@@ -1,0 +1,30 @@
+﻿@page
+@model Client.Pages.Security.IndexModel
+@{
+	Layout = "_Layout.cshtml";
+	ViewData["Title"] = Model.Input.UserName;
+}
+
+
+	@if (!string.IsNullOrEmpty(Model.StatusMessage))
+	{
+		<span class="green">@Model.StatusMessage</span>
+		<br />
+	}
+	<form method="post">
+		<div asp-validation-summary="ModelOnly" class="error"></div>
+	<input asp-for="Input.Email" type="hidden"/>
+		<label asp-for="Input.UserName"><i class="icon-user icon-1x"></i>Usuario</label>
+			<span asp-validation-for="Input.UserName" class="error"></span>
+			<input asp-for="Input.UserName" />
+		<label asp-for="Input.PhoneNumber"><i class="icon-phone icon-1x"></i>Teléfono</label>
+			<span asp-validation-for="Input.PhoneNumber" class="error"></span>
+			<input asp-for="Input.PhoneNumber" />
+		<br />
+		<button type="submit">Guardar</button>
+	</form>
+
+@section Scripts {
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMF2YC9DE-xYyVJEsU8xnP0VKS5wzggN8&region=EC&types=(regions)&components=country:ec"></script>
+	<script defer async src="~/scripts/components/image.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,22 @@
+﻿@model IList<OrganizationUser>
+<table>
+    <thead>
+        <tr>
+            <td>Usuario</td>
+            <td>Eliminar</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>
+                    <a href="javascript:void(0)" onclick="OrganizationUser('@item.UserId', true)">
+                        <i class="icon-file-minus icon-1x"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

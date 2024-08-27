@@ -1,0 +1,346 @@
+﻿@model Work
+@{
+    var any = Model.Labor.Where(_ => _.Finished == true).ToList().Any();
+}
+<div class="card large center">
+    <h2 id="top"><i class="icon-clipboard icon-1x middle">&nbsp;</i>Orden de Trabajo</h2>
+    <br />
+    <div class="four_fifth">
+        <small>Descripción: </small><span>@Model.Maintenance.Equipment.Descr</span>
+    </div>
+    <div class="two_third">
+        <small>Ubicación: </small><span>@Model.Maintenance.Equipment.Location</span>
+        <br />
+        <small>Técnico Asignado: </small><span>@Model.Maintenance.TechnicianName</span>
+        <br />
+        <small>Fecha Programada: </small><span>@Model.Maintenance.Programmed.ToShortDateString()</span>
+    </div>
+    <div class="one_third">
+        <small>Serie: </small><span>@Model.Maintenance.Equipment.Serial</span>
+        <br />
+        <small>Orden: </small><span>@Model.Maintenance.Id</span>
+        <br />
+        <small>Estado: </small><span>@Model.Maintenance.Status.ToString()</span>
+    </div>
+    <br />
+    <br />
+    <input asp-for="Id" type="hidden" />
+    <input asp-for="Maintenance.EquipmentId" type="hidden" />
+    <a href="#1" class="button"><i class="icon-speedometer-linear icon-1x middle"></i><span class="middle">Mediciones</span></a>
+    <span>&nbsp;</span>
+    <a href="#2" class="button"><i class="icon-document-linear icon-1x middle"></i><span class="middle">Observaciones</span></a>
+    <br />
+    <table id="labor" class="table">
+        <thead>
+            <tr>
+                <th class="max">
+                    <strong>Seleccionar Todo</strong>
+                </th>
+                <th>
+                    <input type="checkbox" class="checkbox_item" checked="@any" />
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int index = 0;
+                foreach (LaborView item in Model.Labor)
+                {
+                    index++;
+                    <tr>
+                        <td class="max">
+                            @item.Descr
+                        </td>
+                        <td>
+                            <input type="checkbox" class="checkbox_item" value="@item.Id" checked="@item.Finished" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <a href="#top" class="middle"><i class="icon-arrow-up icon-2x">&nbsp;</i></a>
+    <strong id="1">Mediciones</strong>
+    <br />
+    <div id="measurement">
+        <br />
+        @{
+            var measurements = Model.Measurement
+            .GroupBy(m => new { m.MeasurementId })
+            .Select(g => g.First());
+            var parts = Model.Measurement
+            .GroupBy(m => new { m.MeasurementPartId })
+            .Select(g => g.First());
+            var steps = Model.Measurement
+            .GroupBy(m => new { m.MeasurementStepId })
+            .Select(g => g.First());
+
+            var groups = Model.Measurement
+            .GroupBy(m => new { m.MeasurementId, m.MeasurementPartId, m.MeasurementStepId })
+            .Select(g => g.First());
+
+            var measurementId = 0;
+            var partId = 0;
+            var stepId = 0;
+
+            foreach (var group in groups)
+            {
+                if (measurementId != group.MeasurementId)
+                {
+                    measurementId = group.MeasurementId;
+                    <div class="green">@group.MeasurementDescr</div>
+                }
+
+                @if (partId == 0 || partId != group.MeasurementPartId)
+                {
+                    partId = group.MeasurementPartId ?? 0;
+                    if (partId != 0)
+                    {
+                        <label class="green">@group.MeasurementPartDescr</label>
+                    }
+                }
+                @if (stepId != group.MeasurementStepId)
+                {
+                    var disabled = (group.MeasurementStepId == 19) ? "disabled" : "";
+                    stepId = group.MeasurementStepId;
+                    <span class="one_quarter">
+                        <label>@group.MeasurementStepDescr</label>
+                        <input @disabled class="input_value" id="@group.Id" type="number" step=".01" value="@group.MeasurementValue?.ToString("0.##")" />
+                    </span>
+                }
+            }
+        }
+    </div>
+    <br />
+    @if (Model.Maintenance.Status != MaintenanceStatus.Finalizada)
+    {
+        <a id="finish" class="button" value="Finalizar"><i class="icon-save icon-1x middle"></i>Finalizar</a>
+    }
+    <br />
+    <a href="#top" class="middle"><i class="icon-arrow-up icon-2x">&nbsp;</i></a>
+    <strong id="2">Observaciones</strong>
+    <br />
+    <textarea id="observation" maintenance="@Model.Maintenance.Id">@Model.Maintenance.Observation</textarea>
+    <br />
+    <label>Visualizar en Pdf?</label>
+    <input id="visibleInPdf" type="checkbox" checked="@Model.Maintenance.ObservationVisibleInPdf" />
+    <br />
+    <ul id="thumbnails" class="thumbnails"></ul>
+    <a href="javascript:$('#upload').click();" class="button" title="Tomar fotos o subir imagenes ..."><i class="icon-camera icon-1x middle"></i><span class="middle">Subir Fotos </span></a>
+    <input id="upload" style="display: none" type="file" multiple onchange="uploadImages(this)" accept="image/*" />
+    <input id="images" type="hidden" value="@Model.Maintenance.Images" />
+    <br />
+   @*  
+       <a href="#top" class="middle"><i class="icon-arrow-up icon-2x">&nbsp;</i></a>
+    <strong id="3">Estado</strong>
+    <br />
+    <select id="status" maintenance="@Model.Id" asp-for="Maintenance.Status" asp-items="Html.GetEnumSelectList<MaintenanceStatus>()"></select> 
+    *@
+   
+</div>
+<script>
+    $(document).ready(function () {
+        $("#labor th input[type=checkbox]").click(function () {
+            var isChecked = this.checked;
+            var data =
+            {
+                maintenanceId: $('#Id').val(),
+                finished: isChecked
+            };
+            post('/Maintenance/LaborUpdate', data);
+            $("#labor td input[type=checkbox]").each(function () {
+                this.checked = isChecked;
+            });
+        });
+
+        $('#labor td input[type=checkbox]').on('change', function () {
+            var data =
+            {
+                id: $(this).val(),
+                finished: $(this).is(':checked')
+            };
+            post('/Maintenance/LaborUpdate', data);
+        });
+
+        $('.input_value').on('change', function () {
+            var data =
+            {
+                id: $(this).prop('id'),
+                value: $(this).val()
+            };
+            post('/Maintenance/MeasurementUpdate', data)
+        });
+
+        $('#observation').on('blur', function () {
+            var data =
+            {
+                id: $('#Id').val(),
+                observation: $('#observation').val()
+            };
+            post('/Maintenance/ObservationUpdate', data)
+        });
+
+        InitializeImages();
+    });
+
+    function InitializeImages() {
+        imagesArray = ($('#images').val() != '') ? $('#images').val().split(';') : [];
+
+        if (imagesArray != []) {
+            imagesArray.forEach(file => displayThumbnail(file));
+        }
+    }
+
+
+
+    function uploadImages(input, width = 640, height = 480) {
+        showLoader();
+        const files = input.files;
+        const uploadedDataUrls = [];
+
+        if (files.length) {
+            let quantity = files.length > 6 ? 6 : files.length;
+
+            for (let i = 0; i < quantity; i++) {
+                const file = files[i];
+                // Ensure it's an image
+                if (file && file.type.match(/image.*/)) {
+                    const reader = new FileReader();
+                    reader.onload = function (readerEvent) {
+                        const image = new Image();
+                        image.onload = function () {
+                            const canvas = $('<canvas/>')[0];
+                            canvas.width = width;
+                            canvas.height = height;
+                            canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                            const dataUrl = canvas.toDataURL('image/jpeg', .63);
+
+                            if (!uploadedDataUrls.includes(dataUrl)) {
+                                uploadedDataUrls.push(dataUrl);
+                                const resizedImage = dataURLToBlob(dataUrl);
+                                $.event.trigger({
+                                    type: "imageResized",
+                                    blob: resizedImage,
+                                    url: dataUrl,
+                                });
+                            } else {
+                                console.log('Duplicate image detected, skipping upload.');
+                            }
+                        }
+                        image.src = readerEvent.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+            $('#success').show();
+        }
+    }
+
+    $(document).on("imageResized", function (event) {
+        const data = new FormData($('form')[0]);
+        const id = $('#Id').val();
+
+        if (event.blob && event.url) {
+            data.append('image_data', event.blob);
+            $.ajax({
+                type: 'POST',
+                url: '/Upload/Multipart',
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                success: function (result) {
+                    post('/Maintenance/ImagesUpdate', { id, image: result });
+                    displayThumbnail(result);
+                    hideLoader();
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+    });
+
+
+
+    function displayThumbnail(file) {
+        const sanitizedFile = $("<div>").text(file).html(); // sanitize user input
+        const url = '/uploads/' + sanitizedFile;
+        const view = $('<a href = "' + url + '" target="_blank" ></a>');
+        const thumbnail = $('<img/>', { src: url, width: 90 });
+        view.append(thumbnail);
+        const link = $('<a href="javascript:void(0)" class="delete-image" data-file="' + sanitizedFile + '"><i class="icon-x"></a>');
+        link.on('click', () => deleteFile(file));
+        const item = $('<li></li>').append(view, link);
+        $('#thumbnails').append(item);
+        imagesArray.push(file); // Add to the categories array
+    }
+
+    function dataURLToBlob(dataURL) {
+        const BASE64_MARKER = ';base64,';
+        const parts = dataURL.split(BASE64_MARKER);
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const uInt8Array = new Uint8Array(raw.length);
+
+        for (let i = 0; i < raw.length; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+
+        return new Blob([uInt8Array], { type: contentType });
+    }
+
+    function deleteFile(file) {
+        const success = function () {
+            $('[data-file="' + file + '"]').closest('li').remove();
+            hideLoader();
+        };
+        post('/Upload/Delete', file, success);
+        post('/Maintenance/ImagesUpdate', { id: $('#Id').val(), image: file }, success);
+
+    }
+
+
+
+
+
+
+    $('#visibleInPdf').on('change', function () {
+        var data =
+        {
+            id: $('#Id').val(),
+            visible: $(this).is(':checked')
+        };
+        post('/Maintenance/VisibleInPdfUpdate', data)
+    });
+
+    $('#status').on('change', function () {
+        var data =
+        {
+            id: $('#Id').val(),
+            status: $(this).find(":selected").val()
+        };
+        post('/Maintenance/StatusUpdate', data);
+    });
+
+    $('#finish').on('click', function () {
+        confirm('¿Desea finalizar el mantenimiento?')
+        var data =
+        {
+            id: $('#Id').val(),
+            equipmentId: $('#Maintenance_EquipmentId').val()
+        };
+        post('/Maintenance/Finish', data);
+        closeModal();
+        MaintenanceFilter();
+    });
+
+
+
+
+
+</script>

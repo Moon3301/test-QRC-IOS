@@ -1,0 +1,46 @@
+﻿<div class="card small center">
+<table id="roleIndex">
+    <thead>
+        <tr>
+            <th>
+                <a href="javascript:roleCreate()" title="Agregar">
+                    <i class="icon-file-plus icon-1x"></i>
+                </a>
+            </th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</div>
+<script>
+        function roleCallback(result) {
+            $("#roleIndex tbody").empty();
+            $.each(result, function (index, role) {
+                var row = $("<tr>");
+
+                row.append("<td><a href=javascript:remove('" + role.id + "') title = 'Borrar'><i class='icon-file-minus icon-1x'></i></a></td>");
+                row.append("<td>" + role.name + "</td>");
+
+                $("#roleIndex tbody").append(row);
+            });
+        }
+
+        function roleIndex() {
+            get("/Security/RoleIndex", null, roleCallback);
+        }
+
+        function roleCreate() {
+            var data = { input: prompt("Rol") };
+            post("/Security/RoleCreate", data, roleCallback);
+        }
+
+        function roleRemove(id = "") {
+            if (confirm("Está seguro de eliminar el registro?"))
+            post("/Security/RoleDelete", { id: id }, roleCallback);
+        }
+
+        roleIndex();
+
+    </script>

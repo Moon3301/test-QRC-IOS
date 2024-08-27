@@ -1,0 +1,164 @@
+﻿/*
+
+.gm-bundled-control
+{
+    display: none;
+}*/
+
+
+.pagination
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination li
+{
+    display: inline-block;
+    padding: 6px;
+    color: var(--color);
+    text-align: center;
+    align-content: center;
+    margin: 0 6px;
+    border: 1px solid var(--input);
+}
+
+.pagination li.active
+{
+    color: var(--title);
+}
+
+.pagination li *
+{
+    vertical-align: middle;
+    padding: 6px;
+}
+
+.pagination li a, .pagination li span
+{
+    color: var(--brand);
+    width: auto;
+    height: 45px;
+    overflow: visible;
+}
+
+.pagination li span
+{
+    color: var(--color);
+}
+
+.pagination li a i
+{
+    padding: 0;
+}
+
+
+
+
+.editor
+{
+    position: relative;
+}
+
+.editor img
+{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    min-height: 200px;
+    border: 1px solid var(--input);
+    transition: opacity 0.6s ease;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.editor img:hover
+{
+    background: var(--theme);
+}
+
+.editor .options
+{
+    vertical-align: middle;
+    position: absolute;
+    color: var(--theme);
+    padding: 6px;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.editor .options a i
+{
+    color: var(--title) !important;
+}
+
+.editor:hover img
+{
+    opacity: 0.3;
+}
+
+.editor:hover .options
+{
+    opacity: 1;
+}
+
+
+#map
+{
+    height: 100%;
+}
+
+
+
+
+/*map*/
+
+.gm-style .gm-style-iw
+{
+    font-size: 18px;
+    color: #333;
+}
+
+.ui-autocomplete
+{
+    color: var(--color) !important;
+    border: 1px dotted var(--input) !important;
+}
+
+.ui-menu-item-wrapper
+{
+    background-color: var(--theme);
+    color: var(--color);
+    padding: 9px !important;
+    border: none;
+}
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active
+{
+    background: var(--color) !important;
+    color: var(--theme) !important;
+}
+.ql-toolbar
+{
+    background: #FFF !important;
+}
+
+.highcharts-background
+{
+ fill: var(--card) !important;
+}
+
+.highcharts-title, .highcharts-axis-labels text, .highcharts-a11y-proxy-button
+{
+    fill: var(--title) !important;
+}
+
+.highcharts-series path
+{
+    stroke: transparent !important;
+}

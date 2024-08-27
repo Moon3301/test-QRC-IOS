@@ -1,0 +1,25 @@
+﻿@model List<LaborView>
+<h3><i class="icon-tools-linear icon-1x">&nbsp;</i>Tareas</h3>
+@{
+	var any = Model.Where(_ => _.Associated == true).ToList().Any();
+}
+<div>
+	@Html.AntiForgeryToken()
+	<input id="CategoryId" type="hidden" value="@Model.First().CategoryId" />
+	<table id="labor" class="table">
+		<tbody>
+			@{
+				int index = 0;
+				foreach (LaborView item in Model)
+				{
+					index++;
+					<tr>
+						<td class="max">
+							@item.Descr
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>

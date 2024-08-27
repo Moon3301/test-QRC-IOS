@@ -1,0 +1,38 @@
+﻿@model IList<UserCredential>
+@if (User.IsInRole("Administrador") || User.IsInRole("Supervisor"))
+{
+	<table id="userTable" class="table">
+		<thead>
+			<tr>
+				<th>
+					<a href="javascript:UserEdit()" title="Agregar">
+						<i class="icon-file-plus icon-1x"></i>
+					</a>
+				</th>
+@* 				<th>
+					<a href="javascript:UserRemove()" title="Borrar"><i class="icon-file-minus icon-1x"></i></a>
+				</th> *@
+				<th class="max">Email</th>
+				<th class="max">Nombre</th>
+				<th class="max">Cargo</th>
+				<th>Contraseña</th>
+@* 				<th>Rol</th>
+ *@			</tr>
+		</thead>
+		<tbody>
+			@foreach (var user in Model)
+			{
+				<tr>
+					<td><a href="javascript:UserEdit('@user.Id')" title="Editar"><i class="icon-edit icon-1x"></i></a></td>
+@* 					<td><a href="javascript:UserRemove('@user.Id')" title="Borrar"><i class="icon-file-minus icon-1x"></i></a></td>
+ *@					<td class="max">@user.Email</td>
+					<td class="max">@user.Name</td>
+					<td class="max">@user.Position.ToString()</td>
+					<td><a href="javascrip:void(0)" onclick="javascript:openModal('/Security/PasswordReset', { id: '@user.Id'} )" title="Password"><i class="icon-key icon-1x"></i></a></td>
+@* 					<td><a href="javascrip:void(0)" onclick="javascript:openModal('/Security/UserRole', { id: '@user.Id'} )" title="Rol"><i class="icon-adjustments-linear icon-1x"></i></a></td>
+ *@				</tr>
+			}
+		</tbody>
+	</table>
+
+}

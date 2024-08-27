@@ -1,0 +1,705 @@
+﻿html
+{
+    line-height: 1.369em;
+    overflow-y: scroll;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    scroll-behavior: smooth;
+    font: 300 16px Arial;
+    text-size-adjust: 100%;
+
+}
+
+body
+{
+    margin: 0;
+    overflow: hidden;
+    width: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: var(--theme);
+    color: var(--color);
+    -webkit-animation: bugfix infinite 1s;
+    transition: opacity .3s ease;
+    line-height: 1.48em;
+    font-size: 1.12em;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+b, strong{
+color: var(--title) !important;
+}
+
+header
+{
+    width: 100%;
+}
+header nav
+{
+    padding: 0 12px 0 12px;
+    background-color: var(--theme);
+}
+
+header nav a
+{
+    vertical-align: middle !important;
+}
+
+header nav label
+{
+    cursor: pointer;
+    user-select: none;
+}
+
+header nav > ul
+{
+    top: 12px;
+    position: relative;
+    text-align: left;
+    display: inline-block;
+}
+
+header nav ul li
+{
+    display: inline-block;
+}
+
+
+header nav ul li a
+{
+    font-weight: normal;
+    display: inline-block;
+    overflow: visible;
+    text-align: center;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.9;
+    background: var(--theme);
+    border-radius: 50%;
+    padding: 9px;
+}
+
+
+header nav ul li a i
+{
+    margin-top: -3px;
+    vertical-align: middle;
+    font-size: 1.6em;
+    margin: 0;
+    color: var(--title) !important;
+}
+
+header nav ul li a:hover i
+{
+    color: var(--title);
+}
+
+ul
+{
+    list-style: none !important;
+}
+
+a
+{
+    color: var(--brand);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: var(--title);
+}
+
+/*a i[class*="icon-"]
+{
+    color: var(--brand);
+}*/
+
+small
+{
+font-size: 0.96em;
+}
+
+br
+{
+    clear: both;
+}
+
+hr
+{
+    border: 0;
+    border-top: 1px dotted var(--input);
+    display: block;
+    height: 1px;
+    margin: 9px 0;
+    padding: 0;
+    clear: both;
+}
+
+p
+{
+    margin: 6px 0 12px 0;
+}
+
+ul, ol, menu
+{
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+    padding-inline-start: 0 !important;
+}
+
+
+
+img
+{
+    border: none;
+    margin: 0 6px 0 0;
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+}
+
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: "JetBrains Mono", monospace;
+    font-display: swap;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    line-height: 1em;
+    padding: 12px 0;
+    color: var(--title);
+    letter-spacing: -2px;
+    margin-left: -3px;
+}
+
+
+h1
+{
+    font-size: 1.7em;
+}
+
+h2
+{
+    font-size: 1.6em;
+}
+
+h3
+{
+    font-size: 1.5em;
+}
+
+h4, h5, h6
+{
+    font-size: 1.4em;
+}
+
+
+big{
+font-size: 1.2em;
+vertical-align: middle;
+}
+
+
+
+
+toolbar
+{
+    float: right;
+    text-align: center;
+    display: block;
+    margin: 6px auto;
+    clear: both;
+}
+toolbar a
+{
+    margin-left: 3px;
+    padding: 3px !important;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+toolbar a i
+{
+    vertical-align: middle;
+    margin: 0 !important;
+    color: var(--color) !important;
+}
+
+
+toolbar a:hover, toolbar a:hover i
+{
+    color: var(--brand) !important;
+}
+
+
+label
+{
+    margin: 9px 0 3px 0;
+    padding: 0 6px;
+    font-size: 1.1em;
+    display: block;
+    vertical-align: middle;
+    color: var(--input);
+}
+
+
+
+
+input, select, textarea
+{
+    overflow: hidden;
+    appearance: none;
+    font-size: 1.1em;
+    font-weight: normal;
+    vertical-align: middle;
+    overflow: visible;
+    height: 55px;
+    line-height: 55px;
+    text-align: left;
+    margin: 6px 0;
+    padding: 6px 12px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: none;
+    -webkit-font-smoothing: antialiased;
+    width: auto;
+    background-color: transparent;
+    color: var(--color);
+    font-family: sans-serif;
+    border: 1px dotted var(--input);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/*.card input, .card select, .card textarea
+{
+    background: var(--theme);
+}*/
+
+input:focus::-webkit-input-placeholder
+{
+    opacity: 0;
+}
+
+   input:focus::-webkit-input-placeholder {
+    opacity: 0;
+}
+
+
+
+
+
+
+input[type="search"]
+{
+    -webkit-appearance: textfield;
+    box-sizing: content-box;
+}
+
+input.number
+{
+    width: 148px !important;
+}
+
+input:hover, textarea:hover, select:hover, .upload:hover,
+input:focus, textarea:focus, select:focus, .upload:focus
+{
+    border: 1px dotted var(--title);
+    font-weight: normal;
+    outline: none !important;
+    color: var(--title);
+}
+
+
+
+input:disabled, textarea:disabled, select:disabled
+{
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+input::selection, ::selection, ::-moz-selection
+{
+    color: var(--brand) !important;
+}
+
+input[list]
+{
+    -webkit-appearance: none; /* Hide dropdown arrow in WebKit browsers like Chrome and Safari */
+    appearance: none; /* Standard CSS property to remove default styling, works in Firefox */
+    background: none; /* Remove any background images or colors if set */
+}
+
+/* For Internet Explorer and Edge */
+input[list]::-ms-expand
+{
+    display: none;
+}
+
+textarea
+{
+    line-height: 1.45em;
+    height: 4em; 
+    resize: none;
+    overflow: hidden;
+    resize: vertical;
+    vertical-align: top;
+    padding: 12px;
+    font-size: 0.96em;
+}
+
+select
+{
+    /* you should keep these firsts rules in place to maintain cross-browser behaviour */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: none;
+    position: relative;
+    cursor: inherit;
+    line-height: 45px;
+    height: 55px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+
+.select
+{
+    position: relative;
+}
+.select::after
+{
+    cursor: pointer !important;
+    font-family: icomoon;
+    content: "\e92e";
+    font-size: 33px;
+    color: var(--input) !important;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    pointer-events: none;
+}
+
+select::-ms-expand
+{
+    display: none;
+}
+
+
+input:invalid, textarea:invalid
+{
+    color: #FF0000;
+}
+
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+{
+    background: var(--theme) !important;
+    -webkit-text-fill-color: var(--color) !important;
+}
+
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus
+{
+    -webkit-text-fill-color: var(--color) !important;
+}
+
+/* Remove yellow background color in Safari */
+input:-webkit-autofill
+{
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+}
+
+
+
+
+input[type=range]
+{
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    /*fix for FF unable to apply focus style bug */
+    /*border: 1px solid #ddd;*/
+    /*required for proper track sizing in FF*/
+    padding: 12px;
+    cursor: pointer !important;
+    height: 36px;
+}
+
+input[type=range]::-webkit-slider-runnable-track
+{
+    height: 1px;
+    border: 1px solid var(--input);
+    padding: 0;
+}
+
+input[type=range]::-webkit-slider-thumb
+{
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 10px;
+    background-color: var(--brand);
+    margin-top: -10px;
+}
+
+
+
+input[type=range]::-moz-range-thumb
+{
+    border: none;
+    height: 20px;
+    width: 10px;
+    background-color: var(--brand);
+}
+
+input[type=range]::-ms-thumb
+{
+    border: none;
+    height: 20px;
+    width: 10px;
+    background-color: var(--brand);
+    margin-top: -1px;
+}
+
+input[type=radio], input[type=checkbox]
+{
+    display: inline-block;
+    position: relative;
+    padding: 2px !important;
+    vertical-align: middle !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+input[type=radio]
+{
+    border-radius: 50%;
+}
+
+input:checked::before, input[type=radio]:checked::before
+{
+    content: '\2713';
+    color: var(--brand) !important;
+    position: absolute;
+    top: -16px !important;
+    left: 6px !important;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+input[type=radio]:checked::after i
+{
+    color: var(--brand) !important;
+}
+
+input[type="checkbox"], input[type="radio"]
+{
+    box-sizing: border-box;
+    margin-right: 6px !important;
+border: 1px solid var(--input) !important;
+}
+
+.input:disabled, select:disabled, textarea:disabled
+{
+    background-color: #EAEAEA;
+}
+
+
+::placeholder
+{ /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--color);
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder
+{ /* Internet Explorer 10-11 */
+    color: var(--input);
+}
+
+::-ms-input-placeholder
+{ /* Microsoft Edge */
+    color: var(--input);
+}
+
+::-webkit-calendar-picker-indicator
+{
+    filter: invert(100%);
+    cursor: pointer;
+}
+
+table
+{
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 6px;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border: 0;
+    padding: 0;
+}
+
+
+table th
+{
+    border: none;
+    padding: 12px;
+    color: var(--text);
+    font-style: italic;
+    font-weight: normal;
+    height: 24px;
+    top: 0;
+    width: fit-content;
+    text-align: left;
+    align-content: flex-start;
+}
+
+table th.max
+{
+    width: auto;
+    text-align: left;
+}
+
+table tr
+{
+    padding: 6px;
+    border: 1px solid var(--label);
+}
+
+
+
+table td
+{
+    border-top: 1px solid var(--label);
+    padding: 12px;
+    height: 24px;
+    text-align: left;
+}
+
+table td.max
+{
+    text-align: left;
+}
+
+
+button, input[type="button"], input[type="reset"], input[type="submit"], .button
+{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 42px;
+    line-height: 36px;
+    margin: 6px 0;
+    padding: 0 12px;
+    border: none;
+    cursor: pointer;
+    text-transform: capitalize;
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
+    background: var(--brand);
+    color: var(--card);
+    vertical-align: middle;
+    align-content: center;
+    border-radius: 3px;
+}
+
+.button span, .button strong{
+    margin-right: 6px;
+}
+
+button i, input[type="button"] i, input[type="reset"] i, input[type="submit"] i, .button i
+{
+    padding: 3px;
+    min-height: 0;
+    line-height: 0;
+    color: var(--theme) !important;
+}
+
+a.button:hover, button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover
+{
+    background: var(--title);
+    color: var(--theme) !important;
+    outline: none;
+}
+
+
+a.button i, button i, input[type="button"] i, input[type="reset"] i, input[type="submit"] i
+{
+    vertical-align: middle;
+    background: transparent;
+}
+
+
+footer
+{
+    background: var(--translucid);
+    position: relative;
+    display: block;
+    vertical-align: top;
+    text-align: left;
+    padding: 124px 0;
+    margin-top: 124px;
+}
+
+
+footer a i
+{
+    background: var(--theme);
+    border-radius: 50%;
+    padding: 12px;
+    height: 36px;
+    line-height: 36px;
+    vertical-align: middle;
+    justify-content: center;
+}
+
+
+footer .icon-tiktok-color
+{
+    color: var(--color) !important;
+}

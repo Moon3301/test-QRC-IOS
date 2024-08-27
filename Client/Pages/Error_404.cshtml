@@ -1,0 +1,22 @@
+﻿@page
+@model Error_404Model
+@{
+    ViewData["Title"] = "No Encontrado";
+}
+    <div class="row top container">
+    <div class="card small center">
+            <h3>@ViewData["Title"]</h3>
+        <p>
+            <i class="icon-alert-octagon icon-2x"></i>
+        </p>
+            <form method="get" action="https://www.google.com/search">
+                <div style="vertical-align: middle">
+                    <label for="q">Buscar en Google:</label>
+                    <input type="text" name="q" size="25" maxlength="255" value="" />
+                    <br />
+                    <button>Buscar</button>
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>

@@ -1,0 +1,21 @@
+[
+
+  {
+    "outputFileName": "wwwroot/styles/site.min.css",
+    "inputFiles": [
+      "wwwroot/styles/html.css",
+      "wwwroot/styles/theme.css",
+      "wwwroot/styles/screen.css",
+      "wwwroot/styles/animated.css",
+      "wwwroot/styles/components.css",
+      "wwwroot/styles/print.css",
+      "wwwroot/fonts/icons/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/scripts/general.min.js",
+    "inputFiles": [
+      "wwwroot/scripts/general/*"
+    ]
+  }
+]

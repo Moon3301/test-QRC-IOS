@@ -1,0 +1,40 @@
+﻿@page "/organization/configuration/{id}/{descr}"
+@model Client.Pages.Organization.ConfigurationModel
+@section styles
+{
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+}
+
+<div class="row top container center">
+    <h1>@Model.Organization</h1>
+    <br />
+    <input id="organization" type="hidden" value="@Model.OrganizationId" />
+    <div class="one_half">
+        <div class="card medium">
+            <h2>Usuarios</h2>
+            <input id="user" class="select" placeholder="..." />
+            <div id="users">
+                @{
+                    await Html.RenderPartialAsync("/Pages/Shared/Organization/Users.cshtml", Model.Users);
+                }
+            </div>
+        </div>
+    </div>
+    <div class="one_half">
+        <div class="card medium">
+            <h2>Tipos de Equipos</h2>
+            <input id="category" class="select" placeholder="..." />
+            <div id="categories">
+                @{
+                    await Html.RenderPartialAsync("/Pages/Shared/Organization/Categories.cshtml", Model.Categories);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
+    <script async defer src="/scripts/pages/organization.js" asp-append-version="true"></script>
+}

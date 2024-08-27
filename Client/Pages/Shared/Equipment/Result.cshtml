@@ -1,0 +1,62 @@
+﻿@model PaginatedResult<EquipmentItem>
+@{
+	var organizationId = 0;
+	if (Model.Items != null && Model.Items.Count > 0)
+		organizationId = Model.Items.First().OrganizationId;
+}
+<div>
+
+	@if (Model != null)
+	{
+		<br />
+		<span class="center">
+			<a href="javascript:MaintenanceIndex()" class="button"><i class="icon-calendar icon-1x">&nbsp;</i>Visualizar Mantenimientos</a>
+		</span>
+		<br />
+		await Html.RenderPartialAsync("Pagination", Model.Pages);
+
+	}
+	<table id="table" class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>
+						<a href="#" class="view" onclick="Create('Equipment')"><i class="icon-file-plus icon-1x"></i></a>
+					</th>
+					<th>
+					</th>
+					<th class="max">Tipo de Equipo</th>
+					<th class="max">Descripción</th>
+					<th class="max">Número de Serie</th>
+					<th class="max">Última Mantención</th>
+					<th class="max">Periodicidad</th>
+					<th title="Imágenes"></th>
+					<th title="Historial"></th>
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					int index = 0;
+					foreach (EquipmentItem item in Model.Items)
+					{
+						var last = (item.LastMaintenance != null) ? item.LastMaintenance.Value.ToString("d/ M/ yyyy") : string.Empty;
+						var attachment = (item.HasImages) ? "icon-paperclip icon-1x" : "";
+						var style = (item.HasObservation) ? "color: red; !important" : "";
+						index++;
+						<tr>
+							<td><a href="#" onclick="Label(@item.Id)"><i class="icon-tag icon-1x"></i></a></td>
+							<td><a href="javascript:Edit('Equipment', @item.Id, 'large')"><i class="icon-edit icon-1x"></i></a></td>
+						<td><a href="javascript:EquipmentDelete(@item.Id)"><i class="icon-file-minus icon-1x"></i></a></td>
+						<td class="max">@item.Category</td>
+							<td class="max">@item.Descr</td>
+							<td class="max">@item.Serial</td>
+							<td class="max">@last</td>
+							<td class="max">@item.Calendar</td>
+							<td class="max"><i class="@attachment"></i></td>
+							<td><a href="javascript:EquipmentHistory(@item.Id)" class="view"><i class="icon-calendar icon-1x" style="@style"></i></a></td>
+							</tr>
+					}
+				}
+			</tbody>
+		</table>
+</div>

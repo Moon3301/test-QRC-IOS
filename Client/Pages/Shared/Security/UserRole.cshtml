@@ -1,0 +1,45 @@
+﻿@model Client.Controllers.UserRoleModel
+
+<div class="card small center" id="assignRolesContainer">
+    <h1>@Model.UserName</h1>
+    <table id="roles">
+        <thead>
+            <tr>
+                <th class="max">Rol</th>
+                <th><i class="icon-adjustments-linear icon-1x"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.Roles)
+            {
+                <tr>
+                    <td class="max">
+                        @role.Name
+                    </td>
+                    <td>
+                        <input type="checkbox" data-role="@role.Name" @(role.Associated ? "checked" : "") />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>   
+    <button onclick="associationUpdate()">Actualizar</button>
+</div>
+
+<script>
+    
+
+    function associationUpdate() { 
+        var selectedRoles = $('#roles tr td input:checked').map(function () {
+            return $(this).data('role');
+        }).get();
+        
+        var userId = '@Model.UserId';
+        var data = {
+            userId: userId,
+            roles: selectedRoles
+        }
+        post("/Security/UserRoleUpdate", data);
+        closeModal();
+    }
+</script>

@@ -1,0 +1,26 @@
+﻿@model List<MeasurementView>
+<div>
+	@Html.AntiForgeryToken()
+	@foreach (MeasurementView item in Model)
+	{
+		<table id="table" class="table">
+			<thead>
+				<tr>
+					<th class="max">
+						@item.Descr
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (MeasurementPartView part in item.Parts)
+				{
+					<tr>
+						<td class="max">
+							@part.Descr
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+</div>

@@ -1,0 +1,22 @@
+﻿@model IList<OrganizationCategory>
+<table>
+    <thead>
+        <tr>
+            <td>Tipo de Equipo</td>
+            <td>Eliminar</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Category</td>
+                <td>
+                    <a href="javascript:void(0)" onclick="OrganizationCategory(@item.CategoryId, true)">
+                        <i class="icon-file-minus icon-1x"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

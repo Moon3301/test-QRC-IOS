@@ -1,0 +1,100 @@
+﻿@page "{handler?}"
+@section styles {
+    <link rel="preload" href="~/styles/graphic.css" asp-append-version="true" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        @*     <link rel="preload" href="https://code.highcharts.com/css/themes/dark-unica.css" asp-append-version="true" as="style" onload="this.onload=null;this.rel='stylesheet'">
+ *@
+}
+
+@model Client.Pages.IndexModel
+@{
+    var currentYear = DateTime.UtcNow.Year;
+    var monthNames = new Dictionary<int, string>()
+    {
+        { 1, "Enero" },
+        { 2, "Febrero" },
+        { 3, "Marzo" },
+        { 4, "Abril" },
+        { 5, "Mayo" },
+        { 6, "Junio" },
+        { 7, "Julio" },
+        { 8, "Agosto" },
+        { 9, "Septiembre" },
+        { 10, "Octubre" },
+        { 11, "Noviembre" },
+        { 12, "Diciembre" }
+    };
+}
+
+<div class="row container">
+    <div class="card medium center">
+        <form method="post" id="Graphic_Form">
+            <div class="one_third first">
+                <label>Cliente</label>
+                <select id="OrganizationId" name="OrganizationId" asp-items="Model.OrganizationList" class="Graphic_Input">
+                    <option value="0">Selecciona</option>
+                </select>
+            </div>
+            <div class="one_third">
+                <label>Mes</label>
+                <select id="Month" name="Month" class="Graphic_Input" sele>
+                    @foreach (var month in monthNames)
+                    {
+                        if (month.Key == DateTime.UtcNow.Month)
+                        {
+                            <option value="@month.Key" selected>@month.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@month.Key">@month.Value</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="one_third">
+                <label>Año</label>
+                <select id="Year" name="Year" class="Graphic_Input">
+                    @for (var year = currentYear - 6; year <= currentYear; year++)
+                    {
+                        if (year == DateTime.UtcNow.Year)
+                        {
+                            <option value="@year" selected>@year</option>
+                        }
+                        else
+                        {
+                            <option value="@year">@year</option>
+                        }
+                    }
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="one_half first">
+        <figure class="highcharts-figure">
+            <div id="pie1" class="chart"></div>
+        </figure>
+    </div>
+    <div class="one_half">
+        <figure class="highcharts-figure">
+            <div id="pie2" class="chart"></div>
+        </figure>
+    </div>
+
+    <div class="one_half first">
+        <figure class="highcharts-figure">
+            <div id="bar1" class="chart"></div>
+        </figure>
+    </div>
+    <div class="one_half">
+        <figure class="highcharts-figure">
+            <div id="bar2" class="chart"></div>
+        </figure>
+    </div>
+
+</div>
+@section scripts {
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="~/scripts/graphic.js" asp-append-version="true"></script>
+}

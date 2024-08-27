@@ -1,0 +1,16 @@
+﻿@model CategoryView
+@if (Model != null)
+{
+	<h3><i class="icon-layers icon-1x">&nbsp;</i>Categoría</h3>
+	<form method="post" id="Category_Form">
+		@Html.AntiForgeryToken()
+		<input type="hidden" asp-for="Id" />
+			<label asp-for="Descr">Descripción</label>
+			<input type="text" asp-for="Descr" class="Category_Input uppercase" />
+
+		@if (Model != null && Model.Id == 0)
+		{
+			<input type="button" value="Enviar" class="Category_Input" />
+		}
+	</form>
+}

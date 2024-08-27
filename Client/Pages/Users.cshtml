@@ -1,0 +1,37 @@
+﻿@page
+@model Client.Pages.UsersModel
+@{
+}
+<div class="row center">
+	<h1>Usuarios</h1>
+	<div class="card large center">
+		<div id="index">
+			@{
+				await Html.RenderPartialAsync("Security/Result", Model.Collection);
+			}
+		</div>
+	</div>
+</div>
+<script>
+	function userCallback(result) {
+		closeModal();
+		$("#index").empty();
+		$("#index").append(result);
+	}
+
+	function UserEdit(id = "") {
+		openModal("/Security/Edit", { id: id });
+	}
+
+	function UserRemove(id = "") {
+		if (confirm("Desea eliminar el usuario de todo el sistema?" + id))
+			post("/Security/Delete", { id: id }, userCallback);
+	}
+
+	function UserUpdate() {
+		var data = serialize("#User_Data");
+		watch(data);
+		post("/Security/Update", data, userCallback);
+	}
+
+</script>

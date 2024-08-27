@@ -1,0 +1,338 @@
+﻿.grid
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.column
+{
+    flex: 1 1 calc(100% - 12px);
+    max-width: 100%;
+}
+
+.column img
+{
+    width: 100%;
+}
+
+.one_half_mobile
+{
+    width: 45%;
+    display: inline-block;
+}
+
+.one_third_mobile
+{
+    width: 30%;
+    display: inline-block;
+}
+
+.one_half_mobile, .one_third_mobile, .two_third_mobile
+{
+    margin: 0 3px;
+}
+
+
+.four_fifth_mobile
+{
+    width: 78%;
+}
+
+.one_half, .one_third, .two_third, .one_quarter, .two_quarter, .three_quarter, .one_fifth, .two_fifth, .three_fifth, .four_fifth, .one_sixth, .two_sixth, .three_sixth, .four_sixth, .five_sixth
+{
+    display: block;
+    margin: 0 6px 12px 0;
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+}
+
+.one_half_nogutter
+{
+    width: 100%;
+}
+
+.first, .nogutter
+{
+    margin-left: 0;
+}
+
+.one_third
+{
+    overflow: hidden;
+}
+
+.one_third img
+{
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.full_width
+{
+    display: block;
+    width: 100% !important;
+    clear: both;
+}
+
+
+/*RESPONSIVE*/
+@media only screen and (max-width: 640px)
+{
+    /* Hide table headers in mobile view */
+    table thead
+    {
+        display: none;
+    }
+
+    /* Display table rows as blocks */
+    table td, table tr
+    {
+        display: block;
+    }
+    /* Hide table headers (but not display: none;, for accessibility) */
+    table thead tr
+    {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    table tr + tr
+    {
+        top: 1.4em;
+    }
+}
+@media only screen and (min-width: 640px)
+{
+
+   
+    .column
+    {
+        display: inline-block !important;
+        flex: 1 1 calc(33% - 12px);
+        max-width: 33%;
+    }
+
+
+
+    #banner
+    {
+        padding-top: 20px;
+        background-size: contain !important;
+        object-fit: contain !important;
+    }
+
+    .aligned
+    {
+        display: inline-flex;
+        position: relative;
+        gap: 6px;
+        align-items: center;
+    }
+
+    
+
+    .mobile_only
+    {
+        display: none !important;
+    }
+
+    .one_half,
+    .one_third, .two_third,
+    .one_quarter, .two_quarter, .three_quarter,
+    .one_fifth, .two_fifth, .three_fifth, .four_fifth,
+    .one_sixth, .two_sixth, .three_sixth, .four_sixth, .five_sixth
+    {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 6px 6px 0;
+        list-style: none;
+        overflow: hidden;
+    }
+
+    .one_half:first-child,
+    .one_third:first-child, .two_third:first-child
+    {
+        margin-left: 0;
+    }
+
+    .one_half
+    {
+        width: 45%;
+        display: inline-block;
+    }
+
+    .one_third
+    {
+        width: 30%;
+    }
+
+    .two_third
+    {
+        width: 60%;
+    }
+
+    .one_third.nogutter
+    {
+        width: 33.33333%;
+    }
+
+    .two_third.nogutter
+    {
+        width: 66.66666%;
+    }
+
+
+    /* Quarter Grid-------------------------------------*/
+
+    .one_quarter
+    {
+        width: 24%;
+    }
+
+    .two_quarter
+    {
+        width: 39%;
+    }
+    /* Same as one_half */
+    .three_quarter
+    {
+        width: 72%;
+    }
+
+    /*
+.one_quarter.nogutter{width:300px;} => 300 ÷ 1200 = 0.25 * 100 = 25
+.two_quarter.nogutter * .one_quarter.nogutter => 2 * 25 = 50
+.three_quarter.nogutter * .one_quarter.nogutter => 3 * 25 = 75
+*/
+
+    .one_quarter.nogutter
+    {
+        width: 25%;
+    }
+
+    .two_quarter.nogutter
+    {
+        width: 50%;
+    }
+
+    .three_quarter.nogutter
+    {
+        width: 75%;
+    }
+
+
+
+    /*
+.one_fifth{width:192px;} => 192 ÷ 1200 = 0.16 * 100 = 16
+.two_fifth{width:444px} => 444 ÷ 1200 = 0.37 * 100 = 37
+.three_fifth{width:696px} => 696 ÷ 1200 = 0.58 * 100 = 58
+.four_fifth{width:948px} => 948 ÷ 1200 = 0.79 * 100 = 79
+*/
+
+    .one_fifth
+    {
+        width: 17%;
+    }
+
+    .two_fifth
+    {
+        width: 37%;
+    }
+
+    .three_fifth
+    {
+        width: 58%;
+    }
+
+    .four_fifth
+    {
+        width: 78%;
+    }
+
+    
+
+    /*
+.one_fifth.nogutter{width:240px;} => 240 ÷ 1200 = 0.2 * 100 = 20
+.two_fifth.nogutter * .one_fifth.nogutter => 2 * 20 = 40
+.three_fifth.nogutter * .one_fifth.nogutter => 3 * 20 = 60
+.four_fifth.nogutter * .one_fifth.nogutter => 4 * 20 = 80
+*/
+
+    .one_fifth.nogutter
+    {
+        width: 20%;
+    }
+
+    .two_fifth.nogutter
+    {
+        width: 40%;
+    }
+
+    .three_fifth.nogutter
+    {
+        width: 60%;
+    }
+
+    .four_fifth.nogutter
+    {
+        width: 80%;
+    }
+
+
+    /* Sixth Grid-------------------------------------*/
+
+    /*
+.one_sixth{width:150px;} => 150 ÷ 1200 = 0.125 * 100 = 12.5
+.two_sixth{width:360px;} => 360 ÷ 1200 = 0.3 * 100 = 30
+.three_sixth{width:570px;} => 570 ÷ 1200 = 0.475 * 100 = 47.5
+.four_sixth{width:780px;} => 780 ÷ 1200 = 0.65 * 100 = 65
+.five_sixth{width:990px;} => 990 ÷ 1200 = 0.825 * 100 = 82.5
+*/
+
+    .one_sixth
+    {
+        width: 12.5%;
+    }
+
+    .two_sixth
+    {
+        width: 30%;
+    }
+    /* Same as one_third */
+    .three_sixth
+    {
+        width: 47.5%;
+    }
+    /* Same as one_half */
+    .four_sixth
+    {
+        width: 65%;
+    }
+    /* Same as two_third */
+    .five_sixth
+    {
+        width: 82.5%;
+    }
+
+    .video_container
+    {
+        position: relative;
+        padding: 0;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .video_container iframe,
+    .video_container object,
+    .video_container embed
+    {
+        position: relative;
+        width: 560px;
+        height: 315px;
+    }
+}
+
+

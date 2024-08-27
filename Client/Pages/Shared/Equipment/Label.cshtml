@@ -1,0 +1,199 @@
+﻿@model LabelView
+@{
+	System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-CL");
+}
+<style>
+	html
+	{
+		font-family: Calibri !important;
+		font-size: 17px !important;
+	}
+
+	body
+	{
+		margin: 17px 0 0 44px;
+	}
+
+	section
+	{
+		padding-bottom: 44px;
+	}
+
+	.break
+	{
+		page-break-before: always;
+	}
+
+	table
+	{
+		border-collapse: collapse;
+		width: auto;
+	}	
+
+	table td
+	{
+		text-align: left;
+		padding: 3px;
+		width: 40%;
+		margin-right: 20px;
+	}
+
+	hr
+	{
+		height: 1px !important;
+		margin: 6px 0;
+		clear: both;
+		border-top: 1px solid #000;
+	}
+
+	.square
+	{
+		border: 1px solid black;
+		padding: 12px;
+		width: 90%;
+		min-height: 100px;
+		vertical-align: top;
+	}
+
+	.left
+	{
+		align-content: flex-start;
+		text-align: left;
+	}
+
+	
+
+	.right
+	{
+		align-content: flex-end;
+		text-align: right;
+	}
+
+	.float_left
+	{
+		float: left;
+	}
+
+	.float_right
+	{
+		float: right;
+	}
+
+	.clear
+	{
+		clear: both;
+	}
+
+	.center
+	{
+		align-content: center;
+		margin: 0 auto;
+	}
+
+	.center_text
+	{
+		text-align: center;
+	}
+
+	.one_half, .one_third, .two_third
+	{
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.one_half
+	{
+		width: 47%;
+		margin: 0 1%;
+	}
+
+	.one_third
+	{
+		width: 30%;
+		margin: 0 1%;
+	}
+
+	.two_third
+	{
+		width: 60%;
+		margin: 0 1%;
+	}
+
+
+</style>
+<body>
+<div class="row top">
+		<div class="square" style="width: 77%">
+			<div class="two_third">
+				<table>
+				<tr>
+						<td>N° ACTIVO:</td>
+						<td>@Model.Equipment.Asset.ToUpper()</td>
+				</tr>
+				<tr>
+						<td>DESCRIPCIÓN:</td>
+						<td>@Model.Equipment.Descr.ToUpper()</td>
+
+				</tr>
+				<tr>
+						<td>MARCA:</td>
+						<td>@Model.Equipment.Brand.ToUpper()</td>
+
+				</tr>
+					<tr>
+						<td>MODELO:</td>
+						<td>@Model.Equipment.Model.ToUpper()</td>
+
+					</tr>
+					<tr>
+						<td>N° SERIE:</td>
+						<td>@Model.Equipment.Serial.ToUpper()</td>
+
+					</tr>
+					<tr>
+						<td>CALENDARIO:</td>
+						<td>@Model.Equipment.Calendar.ToString().ToUpper()</td>
+
+					</tr>
+					<tr>
+						<td>RESPONSABLE CLÍNICA:</td>
+						<td>JEFE DE ÁREA</td>
+					</tr>
+					<tr>
+						<td>FONO:</td>
+						<td>+56 9 5648 7109</td>
+
+					</tr>
+					<tr>
+						<td>RESPONSABLE CLÍNICA:</td>
+						<td>SUPERVISOR DE ÁREA</td>
+
+
+					</tr>
+					<tr>
+						<td>FONO:</td>
+						<td>+56 9 5648 7109</td>
+
+					</tr>
+					<tr>
+						<td><div class="square center_text">ÚLTIMA MANTENCIÓN:</div></td>
+						<td><div class="square center_text">PRÓXIMA MANTENCIÓN:</div></td>
+						</tr>
+				</table>
+		</div>
+			<div class="one_third">
+				<img style="width:96%;" src="@string.Format("{0}/images/QRCLEANER.png", Model.BaseUrl)" />
+				<br /><br />
+				<span id="qr" style="width: 150px"></span>
+				@* <br />
+				<span class="center">@Model.Equipment.QR</span> *@
+			</div>
+
+		</div>
+</div>
+</body>
+<script src='https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>
+
+<script>
+	new QRCode(document.getElementById("qr"), "@Model.Equipment.QR");
+</script>

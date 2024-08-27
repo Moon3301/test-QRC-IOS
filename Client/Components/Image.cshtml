@@ -1,0 +1,15 @@
+﻿@model Image
+@{
+    ViewData.TemplateInfo.HtmlFieldPrefix = "Input";
+    var file = (string.IsNullOrEmpty(Model.File)) ? "" : Model.File;
+}
+<label><i class="icon-image icon-1x"></i></label>
+<div class="editor">
+<img id="display" src="/images/@file" alt="Subir Imagen" onclick="$('#upload').click();">
+<span class="options">
+        <a href="javascript:void(0);" onclick="$('#upload').click();"><i class="icon-edit icon-1x"></i></a>
+        <a href="javascript:void(0);" onclick="if confirm('Esta seguro de eliminar la imagen?') updateImage('@file','');"><i class="icon-file-minus icon-1x"></i></a>
+</span>
+</div>
+<input id="Input_Image" name="Input.Image" type="hidden" value="@Model.File" />
+<input id="upload" type="file" style="display: none" onchange="uploadImage('@file', this.files[0], updateImage, @Model.Width, @Model.Height)" accept="image/*" />

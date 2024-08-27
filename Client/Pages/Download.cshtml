@@ -1,0 +1,38 @@
+﻿@page "/download"
+@model DownloadModel
+@{
+    var path = DateTime.Now.ToString(@"yyyy-MM").Replace("-", @"\");
+    ViewData["Title"] = "Files";
+    var currentPath = Model.CurrentPath;
+    var parentPath = currentPath == null ? null : System.IO.Path.GetDirectoryName(currentPath);
+}
+<div class="row center">
+    <div class="card medium center">
+        <ul id="downloads">
+            @if (parentPath != null)
+            {
+                <li>
+                    <a href="@Url.Page("Download", new { path = parentPath })"><i class="icon-corner-up-left icon-1x">...</i></a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Page("Download", new { path })"><i class="icon-folder icon-1x">&nbsp;</i>@path</a>
+                </li>
+            }
+            @foreach (var dir in Model.Directories)
+            {
+                <li>
+                    <a href="@Url.Page("Download", new { path = dir })"><i class="icon-folder icon-1x">&nbsp;</i>@dir</a>
+                </li>
+            }
+            @foreach (var file in Model.Files)
+            {
+                <li>
+                    <a href="@Url.Page("Download", "File", new { filePath = file })" class="download"><i class="icon-download icon-1x">&nbsp;</i>@System.IO.Path.GetFileName(file)</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
