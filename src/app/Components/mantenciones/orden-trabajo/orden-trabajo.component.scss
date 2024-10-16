@@ -1,0 +1,21 @@
+.container{
+    
+    overflow-y: auto;
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box; /* Agrega esta línea */
+    margin-bottom: 40px; /* Ajusta este valor según tus necesidades */
+}
+
+.checkbox-derecha {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .image-container {
+    display: flex;
+    flex-direction: row; /* Apilar en una fila horizontal */
+    flex-wrap: nowrap;   /* No permitir que las imágenes salten a una nueva línea */
+    overflow-x: auto;    /* Si hay muchas imágenes, permitir desplazamiento horizontal */
+    gap: 10px;           /* Espacio entre las imágenes */
+  }

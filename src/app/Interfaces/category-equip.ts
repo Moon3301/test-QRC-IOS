@@ -1,0 +1,53 @@
+export type Category = {
+
+    id: number
+    name: string
+
+}
+
+export enum list_equip {
+
+    "PURIFICADOR",
+    "UNIDAD MANEJADORA DE AIRE",
+    "VENTILADOR INYECTOR DE AIRE",
+    "FAN COIL",
+    "REFRIGERADOR",
+    "MINI SPLIT",
+    "SPLIT DUCTO",
+    "VRV - UI",
+    "VENTILADOR EXTRACTOR DE AIRE",
+    "SPLIT CASSETTE",
+    "COMPACTO",
+    "CONGELADOR",
+    "VRV - UE",
+    "MULTI SPLIT",
+    "VITRINA",
+    "VENTANA",
+    "SPLIT MURO",
+    "ROOF TOP",
+    "VEX",
+    "SPLIIT DUCTO",
+    "FREEZER",
+    "SPLIT",
+    "CORTINA",
+    "CORTINA DE AIRE",
+    "MAQUINA DE HIELO",
+    "SPLIT BAJA SILUETA",
+    "EQUIPO ROOF TOP",
+    "SPLIT PISO CIELO",
+    "SPLIT CASSETE",
+    "SPLIT VENTANA",
+    "VENTILADOR INYECCION DE AIRE",
+    "EVAPORADOR (IU)",
+    "CASSETTE/CAMARA",
+    "EVAPORADOR (UI)",
+    "EVAPORADOR 1 (UNIDAD INTERIOR)",
+    "EVAPORADOR 2 (UNIDAD INTERIOR)",
+    "CASSETTE/CAMARA (IU)",
+    "CENTRAL COMPACTO",
+    "SUPPLY COLD AIR TO DATA ROOM",
+    "SUPPLY COLD AIR TO ELECTRICAL ROOM",
+    "FRESH AIR FAN TO OFFICE AREA",
+    "CASSETTE",
+    "EQUIPO MOCHILA",
+}

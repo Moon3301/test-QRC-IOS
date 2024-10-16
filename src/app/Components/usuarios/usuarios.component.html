@@ -1,0 +1,110 @@
+<div class="container" style="overflow-y: auto; height: 100vh; width: 100%;">
+  <br>
+
+  <p></p>
+
+  <div class="container" style="overflow-y: auto; height: 100vh; width: 100%;">
+    <br>
+  
+    <p></p>
+
+    <div *ngFor="let user of dataSource; trackBy: trackById">
+      <mat-card class="mat-card-custom">
+        <mat-card-content>
+          
+          <p><strong>Cargo:</strong> {{formatPosition(user.position)}}</p>
+          <p><strong>Correo:</strong> {{user.email}}</p>
+          <p><strong>Nombre:</strong> {{user.name}}</p>
+  
+          <button mat-stroked-button color="primary" (click)="openModalDetalleUsuario(user)">
+            Ver detalles
+          </button>
+          
+        </mat-card-content>
+      </mat-card>
+      <hr>
+    </div>
+      
+  </div>
+  
+  <button id="open-modal-add-usuario" style="position: fixed; right: 5%; bottom: 10%; background-color: rgb(35, 81, 209);" mat-fab aria-label="Example icon button with a delete icon">
+    <mat-icon style="color: white;">add</mat-icon>
+  </button>
+  
+</div>
+<br>
+<hr>
+
+<ion-modal trigger="open-modal-add-usuario" (willDismiss)="onWillDismissRegister($event)" style="background-color: white;">
+  <ng-template>
+    <ion-header >
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelRegister()"><mat-icon>close</mat-icon></ion-button>
+        </ion-buttons>
+        
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      
+      <h5 class="text-center">Crear usuario</h5>
+      <div class="text-center">
+        <form [formGroup]="createUserForm">
+
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+                  
+              <mat-label>Cargo</mat-label>
+              <mat-select formControlName="position">
+                @for (position of positions; track position) {
+                  <mat-option [value]="position.id">{{position.name}}</mat-option>
+                }
+              </mat-select>
+              
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Username</mat-label>
+              <input type="text" matInput placeholder="Nombre de usuario" formControlName="username">
+              <mat-icon matSuffix>person</mat-icon>
+              
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Nombre</mat-label>
+              <input type="text" matInput placeholder="Nombre y Apellido" formControlName="name">
+              <mat-icon matSuffix>person</mat-icon>
+              
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput placeholder="Email" formControlName="email">
+              <mat-icon matSuffix>mail</mat-icon>
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Contraseña</mat-label>
+              <input type="text" matInput placeholder="Email" formControlName="password">
+              <mat-icon matSuffix>password</mat-icon>
+            </mat-form-field>
+          </p>
+    
+          <button (click)="addUsuario()" class="w-75" mat-flat-button [disabled]="!createUserForm.valid">Crear</button>
+
+        </form>
+      </div>
+      
+
+
+    </ion-content>
+  </ng-template>
+</ion-modal>

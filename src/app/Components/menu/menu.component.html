@@ -1,0 +1,43 @@
+<mat-toolbar>
+
+  <button (click)="drawer.toggle()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  
+  <img src="assets/img/TittleLogin.png" width="100px" height="50px" >
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+
+  <mat-drawer #drawer mode="over">
+
+    <mat-list>
+      <div mat-subheader>Menu</div>
+      @for (folder of filteredFolders; track folder) {
+        <mat-list-item [routerLink]="[folder.route]" (click)="navigateToComponent(folder.name)">
+          <mat-icon matListItemIcon>{{folder.icon}}</mat-icon>
+          <div matListItemTitle>{{folder.name}}</div>
+          
+        </mat-list-item>
+      }
+      <mat-divider></mat-divider>
+      <div mat-subheader>Logout</div>
+      <mat-list-item>
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <div (click)="logout()" matListItemTitle>Cerrar sesion</div>
+      
+      </mat-list-item>
+
+    </mat-list>
+      
+  </mat-drawer>
+
+  <mat-drawer-content style="height: 100vh;">
+    
+    <app-toast-sonner></app-toast-sonner>
+    <ion-router-outlet></ion-router-outlet>
+      
+  </mat-drawer-content>
+  
+</mat-drawer-container>

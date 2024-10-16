@@ -1,0 +1,37 @@
+ion-content {
+    --ion-background-color: #ffffff; /* Color blanco */
+    --color: #000000;
+}
+
+ion-toolbar {
+  --background: #ffffff; /* Color blanco */
+  --color: #000000; /* Color del texto */
+  --ion-background-color: #ffffff; /* Color blanco */
+  --background-color: #ffffff;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mb-4 {
+  margin-top: 150px; /* Ajusta este valor según sea necesario para mover la imagen más abajo */
+  margin-bottom: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.flex-grow-1 {
+  margin-bottom: 180px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

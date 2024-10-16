@@ -1,0 +1,74 @@
+<ion-content class="ion-padding">
+                  
+  <mat-card>
+    <mat-card-content>
+
+      <div class="row">
+        <div class="col-12">
+          <p><b>Descripcion:</b><br>{{dataSource?.equipment.descr}} </p>
+        </div>
+
+        <div class="col-12">
+          <p><b>Ubicacion:</b><br>{{dataSource?.equipment.location}}</p>
+        </div>
+
+        <div class="col-12">
+          <p><b>Serie:</b><br>{{dataSource?.equipment.serial}}</p>
+        </div>
+
+        <div class="col-12 text-center">
+          <button (click)="printHistory()" mat-flat-button>Imprimir Historial</button>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+  <hr>
+
+  <h6 class="text-center">Registro de mantenciones</h6>
+
+  <div *ngFor="let item of dataSource?.maintenances.items; let i = index">
+    <mat-card>
+    
+      <mat-card-content>
+        
+        <div class="row">
+          <div class="col-12">
+            <p><b>Fecha:</b> {{ item.finished | date:'dd-MM-yyyy' }}</p>
+          </div>
+  
+          <div class="col-12">
+            <p><b>Tecnico:</b> {{item.technicianName}}</p>
+          </div>
+  
+          <div class="col-12">
+            <p><b>Observaciones:</b> {{item.observation}}</p>
+          </div>
+  
+          <div class="col-10">
+            <p>Acciones:</p>
+            
+            <div class="row" style="margin: 0 auto;">
+              <button (click)="navigateToWorkOrder(item.id)"  mat-icon-button class="circle-button-blue" style="margin-right: 5px;">
+                <mat-icon>content_paste</mat-icon>
+              </button>
+              <button (click)="printMaintenance(item.id)" mat-icon-button class="circle-button-blue" style="margin-right: 5px;">
+                <mat-icon>print</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+  
+      </mat-card-content>
+      
+    </mat-card>
+    <hr>
+  </div>
+  
+  <hr>
+  <br>
+
+  
+<app-toast-sonner></app-toast-sonner>
+
+</ion-content>

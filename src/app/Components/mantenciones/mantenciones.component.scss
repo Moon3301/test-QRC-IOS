@@ -1,0 +1,80 @@
+ion-content {
+    --ion-background-color: #ffffff; /* Color blanco */
+    --color: #000000;
+}
+
+ion-toolbar {
+  --background: #ffffff; /* Color blanco */
+  --color: #000000; /* Color del texto */
+  --ion-background-color: #ffffff; /* Color blanco */
+  --background-color: #ffffff;
+}
+
+.circle-button-blue {
+  color: white;
+  background-color: rgba(57, 89, 178, 0.9);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.circle-button-white {
+  color: black;
+  background-color: rgb(218, 224, 255);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.example-sidenav {
+  padding: 20px;
+
+}
+
+.drawer-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1; /* Ocupa el espacio restante */
+  height: 100vh;
+}
+
+.scrollable-content {
+  overflow-y: auto;
+  flex: 1; /* Ocupa el espacio restante */
+}
+
+.additional-info {
+  font-size: 0.8em; /* Tamaño de letra más pequeño */
+  text-align: right; /* Alinear a la derecha */
+}
+
+.additional-info p {
+  margin: 0; /* Eliminar márgenes para que estén uno debajo del otro */
+}
+
+.description-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Ajusta la altura según sea necesario */
+}
+
+.circle-button-option {
+  margin-right: 5px;
+  width: 53px; 
+  height: 53px;
+}

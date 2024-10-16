@@ -1,0 +1,11 @@
+{
+    "/api": {
+        "target": "https://mobile.qrc.cl",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel":"debug",
+        "pathRewrite": {
+            "^/api": ""
+        }
+    }
+}

@@ -1,0 +1,15 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  mat-toolbar p {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+  }
+  
+  button {
+    order: -1; /* Ensure the button stays on the left */
+  }

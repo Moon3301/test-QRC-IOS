@@ -1,0 +1,53 @@
+<div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh; position: relative;">
+
+  <!-- Imagen centrada un poco más abajo -->
+  <div class="text-center mb-4">
+    <img src="assets/img/TittleLogin.png" alt="QR CLEANER" width="350px" height="150px">
+  </div>
+
+  <!-- Formulario centrado -->
+  <div class="d-flex justify-content-center align-items-center flex-grow-1 w-100">
+    <mat-card appearance="outlined" class="w-100">
+      <mat-card-content>
+        
+        <!-- Formulario -->
+        <div class="text-center">
+          <form [formGroup]="loginForm">
+            <p>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email</mat-label>
+                <input formControlName="username" matInput placeholder="Email">
+                <mat-icon matSuffix>mail</mat-icon>
+              </mat-form-field>
+            </p>
+      
+            <p>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" type="password" matInput placeholder="Password">
+                <mat-icon matSuffix>password</mat-icon>
+              </mat-form-field>
+            </p>
+            
+            <!-- Botones -->
+            <div class="row">
+              <div class="col-12">
+                <button type="button" style="width: 80%" (click)="login()" mat-flat-button>Entrar</button>
+              </div>
+              <p></p>
+              <div class="col-12">
+                <button type="button" style="width: 80%" (click)="openModalResetPass()" mat-stroked-button>¿Olvido su contraseña?</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+</div>
+
+<app-toast-sonner></app-toast-sonner>
+

@@ -1,0 +1,133 @@
+<div class="container">
+
+  <mat-card appearance="outlined">
+    <mat-card-content>
+
+      <div class="row">
+        <div class="col-12">
+          <p><b>Descripcion: </b>{{dataSourceWorkOrder?.maintenance.equipment.descr}}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Ubicacion:</b><br>{{dataSourceWorkOrder?.maintenance.equipment.location}}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Serie:</b><br>{{dataSourceWorkOrder?.maintenance.equipment.serial}}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Tecnico Asignado:</b><br>{{dataSourceWorkOrder?.maintenance.technicianName}}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Orden:</b> <br>{{dataSourceWorkOrder?.id}}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Fecha Programada:</b><br> {{ dataSourceWorkOrder?.maintenance.equipment.programmed | date:'dd-MM-yyyy' }}</p>
+        </div>
+    
+        <div class="col-6">
+          <p><b>Estado:</b><br>{{mapOption(dataSourceWorkOrder?.maintenance.status, MaintenanceStatusOption) }}</p>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+  <br>
+  
+  <mat-card>
+    <mat-card-content>
+      
+      <mat-checkbox labelPosition='after' (change)="checkAllOptions($event)" [checked]="allChecked"  checked=false class="example-margin checkbox-derecha"><b>Seleccionar todo</b></mat-checkbox>
+      
+      @for(item of dataSourceWorkOrder?.labor; track item){
+        <mat-checkbox [(ngModel)]="item.finished" (change)="onChangeLabor()" labelPosition='after' [checked]="item.finished" class="example-margin checkbox-derecha">{{item.descr}}</mat-checkbox>
+      }
+
+      
+    </mat-card-content>
+
+  </mat-card>
+  <br>
+  <mat-card>
+    <mat-card-content>
+      <mat-label>Mediciones</mat-label>
+
+      @for(item of dataSourceMeasurement; track item){
+
+        <p>{{item.measurementDescr}}</p>
+        @for (part of item.parts; track part){
+          @if(part.measurementPartId != 0){
+            <p>{{part.measurementPartDescr}}</p>
+          }
+          @for(step of part.steps; track step){
+            <p>
+              <mat-form-field appearance="outline" class="w-100">
+                
+                <mat-label>{{step.measurementStepDescr}}</mat-label>
+                
+                <input (change)="onChangeMeasurement()" type="text" matInput [value]="step.measurementValue" [placeholder]="step.measurementStepDescr">
+                
+              </mat-form-field>
+            </p>
+          }
+          
+        }
+        
+      }
+
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card>
+    <mat-card-content>
+      
+      <div class="row">
+        <mat-label>Observaciones</mat-label>
+        <mat-form-field style="width: 100%;">
+          <textarea (change)="onChangeObservation()"  matInput placeholder="Observaciones">{{dataSourceWorkOrder?.maintenance.observation }}</textarea>
+        </mat-form-field>
+      </div>
+      <br>
+      <div class="row">
+        <mat-checkbox (change)="onChangeVisiblePDF()" labelPosition='after' [(ngModel)]="dataSourceWorkOrder?.maintenance.observationVisibleInPdf" [checked]=dataSourceWorkOrder?.maintenance.observationVisibleInPdf class="example-margin checkbox-derecha">¿Visualizar en Pdf?</mat-checkbox>
+      </div>
+      <br>
+      <div class="row">
+        <button  (click)="selectImage()" mat-stroked-button>Subir Fotos</button>
+      </div>
+
+      <!-- Mostrar imágenes seleccionadas (lista de imágenes) -->
+      <div class="image-container">
+        <div *ngFor="let img of selectedImages">
+          <img [src]="img" alt="Imagen seleccionada" style="width: 100px; height: 100px; margin: 10px;">
+        </div>
+      </div>
+      
+    </mat-card-content>
+
+  </mat-card>
+  <br>
+
+  @if(this.dataSourceWorkOrder?.maintenance.status != 5){
+
+    <mat-card>
+      <mat-card-content>
+        
+        <div class="row">
+          <button (click)="saveWorkOrder()" mat-flat-button>Finalizar</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  }
+  
+<br>
+
+<app-toast-sonner></app-toast-sonner>
+
+</div>

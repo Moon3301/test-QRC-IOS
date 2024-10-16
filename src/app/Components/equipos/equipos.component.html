@@ -1,0 +1,480 @@
+<mat-drawer-container class="container" autosize [hasBackdrop]="true" >
+
+  <!-- Filtro Sidenav -->
+  <mat-drawer #drawer class="example-sidenav container" mode="push" position="end" > 
+    <p class="text-center">Filtro de busqueda</p>
+
+    <div class="container">
+      <div class="row">
+
+        <form [formGroup]="filterForm">
+  
+          @for(item of dataFormSelect; track item){
+  
+            <div class="row">
+  
+              <div class="col-12">
+                @if(item.type == 'cliente'){
+                  <p>
+                    <mat-form-field appearance="outline" class="w-100">
+                      
+                      <mat-label>{{item.name}}</mat-label>
+                      <mat-select  placeholder={{item.name}} formControlName={{item.type}}>
+                        @for (filter of item.data; track filter) {
+                          <mat-option (click)="obtenerEquipos()" [value]="filter.id">{{filter.name}}</mat-option>
+                        }
+                      </mat-select>
+                      
+                    </mat-form-field>
+                  </p>
+                }@else {
+                  <p>
+                    <mat-form-field appearance="outline" class="w-100">
+                      
+                      <mat-label>{{item.name}}</mat-label>
+                      <mat-select placeholder={{item.name}} formControlName={{item.type}}>
+                        @for (filter of item.data; track filter) {
+                          <mat-option [value]="filter.id">{{filter.name}}</mat-option>
+                        }
+                      </mat-select>
+                      
+                    </mat-form-field>
+                  </p>
+                }
+                
+              </div>
+  
+            </div>
+  
+          }
+  
+          @for(item of dataFormInput; track item){
+  
+            <div class="row">
+  
+              <div class="col-12">
+                <p>
+                  <mat-form-field appearance="outline" class="w-100">
+                    
+                    <mat-label>{{item.name}}</mat-label>
+                    
+                    <input type="text" matInput placeholder={{item.name}} formControlName={{item.type}}>
+                    <mat-icon matSuffix>{{item.icon}}</mat-icon>
+  
+                  </mat-form-field>
+                </p>
+              </div>
+  
+            </div>
+  
+          }
+          <hr>
+          <div class="row">
+            <mat-checkbox formControlName="acreditacion">Acreditacion</mat-checkbox>
+          </div>
+          <hr>
+          <div class="row">
+
+            <mat-form-field>
+              <mat-label>Seleccione una fecha</mat-label>
+              <input matInput [matDatepicker]="picker">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+          </div>
+          <hr>
+        </form>
+        
+      </div>
+      <hr>
+    </div>
+
+    <button (click)="loadDataEquipments()" (click)="drawer.toggle()" style="position: fixed; right: 5%; bottom: 30%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+      <mat-icon style="color: white;">filter_alt</mat-icon>
+    </button>
+
+    <button (click)="cleanFilterEquipments()" style="position: fixed; right: 5%; bottom: 20%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+      <mat-icon style="color: white;">delete</mat-icon>
+    </button>
+
+  </mat-drawer>
+  
+  <!-- Contenedor principal -->
+  <div class="container ion-padding" >
+
+    <ion-content>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+          
+            <mat-panel-description>
+              <p class="text-center"><b>Planificacion de mantenciones</b></p>
+            </mat-panel-description>
+
+          </mat-expansion-panel-header>
+
+          <form [formGroup]="maintenanceSeed">
+            <div class="row" *ngIf="usuariosPorTipo">
+
+              <div *ngFor="let key of ['supervisor', 'technician', 'helper']; let i = index">
+                <p *ngIf="usuariosPorTipo[key]?.length > 0"> <!-- Si el arreglo no está vacío -->
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>{{ key | titlecase }}</mat-label>
+                    <mat-select [placeholder]="key | titlecase" [formControlName]="key">
+                      <mat-option *ngFor="let usuario of usuariosPorTipo[key]" [value]="usuario.id">
+                        {{ usuario.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </p>
+              </div>
+    
+              <div class="w-100 text-center">
+                <button (click)="createMaintenanceBatch()" mat-stroked-button>Planificar Mantenimiento</button>
+              </div>
+
+            </div>
+          </form>
+        
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <hr>
+
+      <mat-accordion>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+          
+            <mat-panel-description>
+              <p class="text-center"><b>Reportes</b></p>
+            </mat-panel-description>
+
+          </mat-expansion-panel-header>
+          
+          <div class="row">
+            <form [formGroup]="printReportForm">
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Mes</mat-label>
+  
+                <mat-select formControlName="month">
+                  @for(item of months; track item){
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                  }
+                </mat-select>
+  
+              </mat-form-field>
+    
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Año</mat-label>
+                <mat-select formControlName="year">
+                  @for(item of years; track item){
+                    <mat-option [value]="item.id">{{item.name}}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+    
+              <div class="w-100 text-center">
+                <button (click)="printReports()" mat-flat-button>Imprimir reporte</button>
+              </div>
+
+            </form>
+            
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <hr>
+      
+      <mat-card appearance="outlined">
+
+        <mat-card-content>
+
+          <p class="text-center"><b>Lista de equipos</b></p>
+
+          <div *ngIf="isLoadingEquipment" class="spinner-container">
+            <mat-spinner></mat-spinner>
+          </div>
+
+          <div *ngIf="!isLoadingEquipment">
+            <div *ngFor="let item of dataSource; let i = index; trackBy: trackByFn">
+        
+              <div class="row">
+  
+                <mat-accordion>
+                  <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                    
+                      <mat-panel-description>
+                        <p>{{item.category}}</p>
+                      </mat-panel-description>
+          
+                    </mat-expansion-panel-header>
+  
+                    <div class="row">
+                    
+                      <div class="col-12">
+                        <p>Serie: <b>{{item.serial}}</b></p>
+                        <p>Descripcion: <b>{{item.descr}}</b></p>
+                        <p>Última Mantención: <b>{{ item.lastMaintenance | date:'dd-MM-yyyy' }}</b></p>
+                        <p>Periodicidad: <b>{{mapOption(item.calendar, equipmentCalendarOptions)}}</b></p>
+                        <div class="row">
+                          <p><b>Acciones: </b></p>
+                        </div>
+                        
+                        <div class="row" style="margin: 0 auto;">
+                          <button (click)="navigateHistoryEquipment(item.id)" mat-icon-button class="circle-button-blue circle-button-option">
+                            <mat-icon>date_range</mat-icon>
+                          </button>
+      
+                          <button (click)="labelEquipment(item.id)" mat-icon-button class="circle-button-blue circle-button-option">
+                            <mat-icon>print</mat-icon>
+                          </button>
+      
+                          <button [id]="'open-modal-edit-equipo-'+item.serial+i" (click)="getUpdateEquipment(item)" mat-icon-button class="circle-button-blue circle-button-option">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+      
+                          <button mat-icon-button class="circle-button-blue circle-button-option" (click)="deleteEquipment(item.id)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+      
+              </div>
+              <br>
+              <!-- Modal editar equipo -->
+              
+                <ion-modal #modalEditEquipo [trigger]="'open-modal-edit-equipo-'+item.serial+i" (willDismiss)="onWillDismissEditEquipo($event)" style="background-color: white;">
+                  <ng-template>
+                    <ion-header>
+                      <ion-toolbar>
+                        <h5 class="text-center" >Editar Equipo</h5>
+                
+                        <ion-buttons slot="start" >
+                          <ion-button (click)="cancelEditEquipo()"><mat-icon>close</mat-icon></ion-button>
+                        </ion-buttons>
+                        
+                      </ion-toolbar>
+                    </ion-header>
+                    <ion-content class="ion-padding">
+              
+                      <div class="text-center">
+                        <form [formGroup]="updateForm">
+                          
+                          @for(item of dataFormSelect; track item){
+                
+                            <div class="row">
+                              <div class="col-12">
+                                <p>
+                                  <mat-form-field appearance="outline" class="w-100">
+                                    
+                                    <mat-label>{{item.name}}</mat-label>
+                                    <mat-select formControlName={{item.type}}>
+                
+                                      @for (data of item.data; track data) {
+                
+                                        @if(item.type == 'turno' || item.type == 'criticidad' || item.type == 'calendario'){
+                                          <mat-option [value]="data.id">{{data.name}}</mat-option>
+                                        }
+                
+                                        @if(item.type == 'cliente'){
+                                          <mat-option (click)="obtenerEquipos()" [value]="data.id">{{data.name}}</mat-option>
+                                        }
+                
+                                        @if(item.type == 'tipo_equipo'){
+                                          <mat-option [value]="data.id">{{data.name}}</mat-option>
+                                        }
+                
+                                      }
+                                    </mat-select>
+                                    
+                                  </mat-form-field>
+                                </p>
+                              </div>
+                            </div>
+                
+                          }
+                
+                          @for(item of dataFormInput; track item){
+                
+                            <div class="row">
+                
+                              <div class="col-12">
+                                <p>
+                                  <mat-form-field appearance="outline" class="w-100">
+                                    
+                                    <mat-label>{{item.name}}</mat-label>
+                                    
+                                    <input type="text" matInput placeholder={{item.name}} formControlName={{item.type}}>
+                                    <mat-icon matSuffix>{{item.icon}}</mat-icon>
+                                  </mat-form-field>
+                                </p>
+                              </div>
+                
+                            </div>
+                
+                          }
+                
+                          <hr>
+                          <div class="row">
+                            <mat-checkbox formControlName="acreditacion">Acreditacion</mat-checkbox>
+                          </div>
+                          <hr>
+                          <p>
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-label>Ultima mantencion</mat-label>
+                              <input matInput [matDatepicker]="picker" formControlName="ultima_mantencion">
+                              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                          </p>
+                          
+                          <button (click)="updateEquipment()" class="w-75" mat-flat-button>Editar</button>
+                
+                        </form>
+                      </div>
+                      
+                    </ion-content>
+                  </ng-template>
+                </ion-modal>
+              
+            </div>
+          </div>
+          
+        </mat-card-content>
+        
+      </mat-card>
+      
+      
+      <hr>
+
+      <div style="display: flex; justify-content: center; margin-right: 50px;">
+        <mat-paginator 
+          [length]="paginationData?.pageCount"
+          [pageSize]="paginationData?.pageSize"
+          [pageIndex]="paginationData?.pageIndex - 1"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="onPageChange($event)"
+          aria-label="Select page">
+        </mat-paginator>
+      </div>
+      <hr>
+    
+      <button id="open-modal-add-mantencion" style="position: fixed; right: 5%; bottom: 10%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+        <mat-icon style="color: white;">add</mat-icon>
+      </button>
+
+      <button (click)="drawer.toggle()"  style="position: fixed; right: 5%; bottom: 20%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+        <mat-icon style="color: white;">filter_alt</mat-icon>
+      </button>
+      
+    </ion-content>
+    <hr>
+
+  </div>
+  <app-toast-sonner></app-toast-sonner>
+</mat-drawer-container>
+
+<!-- Modal Agregar Equipo -->
+<ion-modal #modalAddEquipo trigger="open-modal-add-mantencion" (willDismiss)="onWillDismissAddEquipo($event)" style="background-color: white;">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <h5 class="text-center" >Crear equipo</h5>
+
+        <ion-buttons slot="start" >
+          <ion-button (click)="cancelAddEquipo()"><mat-icon>close</mat-icon></ion-button>
+        </ion-buttons>
+        
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      
+      <div class="text-center">
+        <form [formGroup]="createForm">
+          
+          @for(item of dataFormSelect; track item){
+
+            <div class="row">
+              <div class="col-12">
+                <p>
+                  <mat-form-field appearance="outline" class="w-100">
+                    
+                    <mat-label>{{item.name}}</mat-label>
+                    <mat-select formControlName={{item.type}}>
+
+                      @for (data of item.data; track data) {
+
+                        @if(item.type == 'turno' || item.type == 'criticidad' || item.type == 'calendario'){
+                          <mat-option [value]="data.id">{{data.name}}</mat-option>
+                        }
+
+                        @if(item.type == 'cliente'){
+                          <mat-option (click)="obtenerEquipos()" [value]="data.id">{{data.name}}</mat-option>
+                        }
+
+                        @if(item.type == 'tipo_equipo'){
+                          <mat-option [value]="data.id">{{data.name}}</mat-option>
+                        }
+
+                      }
+                    </mat-select>
+                    
+                  </mat-form-field>
+                </p>
+              </div>
+            </div>
+
+          }
+
+          @for(item of dataFormInput; track item){
+
+            <div class="row">
+
+              <div class="col-12">
+                <p>
+                  <mat-form-field appearance="outline" class="w-100">
+                    
+                    <mat-label>{{item.name}}</mat-label>
+                    
+                    <input type="text" matInput placeholder={{item.name}} formControlName={{item.type}}>
+                    <mat-icon matSuffix>{{item.icon}}</mat-icon>
+                  </mat-form-field>
+                </p>
+              </div>
+
+            </div>
+
+          }
+
+          <hr>
+          <div class="row">
+            <mat-checkbox formControlName="acreditacion">Acreditacion</mat-checkbox>
+          </div>
+          <hr>
+          <p>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Ultima mantencion</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="ultima_mantencion">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </p>
+          
+          <button (click)="createEquipment()" class="w-75" mat-flat-button>Crear</button>
+
+        </form>
+      </div>
+      
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -1,0 +1,238 @@
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer #drawer class="example-sidenav" mode="push" position="end">
+    <br>
+    <div class="container">
+      <form [formGroup]="filterForm">
+
+        <div *ngFor="let item of dataFilter; trackBy: trackByFn">
+          <div class="row">
+  
+            <div class="col-12">
+              <p>
+                <mat-form-field appearance="outline" class="w-100">
+                  
+                  <mat-label>{{item.name}}</mat-label>
+                  <mat-select [formControlName]="item.type">
+                    @for (filter of item.data; track filter) {
+                      @if (item.type == 'month' || item.type == 'year'){
+                        <mat-option [value]="filter.id">{{filter.name}}</mat-option>
+                      }
+                      @if (item.type == 'cliente'){
+                        <mat-option [value]="filter.id">{{filter.name}}</mat-option>
+                      }
+                      @if (item.type == 'tipo_equipo'){
+                        <mat-option [value]="filter.id">{{filter.name}}</mat-option>
+                      }
+                      
+                    }
+                  </mat-select>
+                  
+                </mat-form-field>
+              </p>
+            </div>
+  
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <button (click)="drawer.toggle()" (click)="getMaintenances()" style="position: fixed; right: 5%; bottom: 20%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+      <mat-icon style="color: white;">filter_alt</mat-icon>
+    </button>
+    
+
+  </mat-drawer>
+
+  <div >
+
+    <ion-content class="container ion-padding" >
+      <br>
+      <div class="row text-center">
+        <div class="col-12">
+          <button (click)="batchDocuments()" mat-stroked-button>Imprimir Reporte</button>
+        </div>
+      </div>
+      <hr>
+
+      <div *ngIf="isLoadingMaintenances" class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="!isLoadingMaintenances">
+
+        <div *ngFor="let item of dataSourceMaintenance; trackBy: trackByFn; let i = index">
+          <br>
+          <div class="row">
+      
+            <mat-accordion>
+            
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-description>
+                    <p>{{item.equipment.category}}</p>
+                  </mat-panel-description>
+                  
+                </mat-expansion-panel-header>
+                
+                <div class="row">
+                  <div class="col-2">
+      
+                  </div>
+      
+                  <div class="col-10">
+                    <p>Serie: <b>{{item.equipment.serial}}</b></p>
+                    <p>Tecnico: <b>{{item.technicianName}}</b></p>
+                    <p>Programada:<b>{{ item.programmed | date:'dd-MM-yyyy' }}</b></p>
+                    <p>Estado: <b>{{mapOption(item.status, MaintenanceStatusOption)}}</b></p>
+                    <div class="row">
+                      <p><b>Acciones: </b></p>
+                    </div>
+                    
+                    <div class="row">
+                      <button (click)="navigateToOrdenTrabajo(item.id)" mat-icon-button class="circle-button-blue circle-button-option">
+                        <mat-icon>content_paste</mat-icon>
+                      </button>
+      
+                      <button [id]="'open-modal-edit-mantencion'+item.serie+i" (click)="getUpdateEquipment(item.equipment)" mat-icon-button class="circle-button-blue circle-button-option">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+      
+                    </div>
+                  
+                  </div>
+                </div>
+                
+              </mat-expansion-panel>
+        
+            </mat-accordion>
+        
+          </div>
+      
+          <ion-modal #modalEditMantencion [trigger]="'open-modal-edit-mantencion'+item.serie+i" (willDismiss)="onWillDismissEditMantencion($event)" style="background-color: white;">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <h5 class="text-center" >Editar</h5>
+          
+                  <ion-buttons slot="start" >
+                    <ion-button (click)="cancelEditMantencion()"><mat-icon>close</mat-icon></ion-button>
+                  </ion-buttons>
+                  
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="container ion-padding">
+                
+                <div class="text-center">
+                  <form [formGroup]="updateForm">
+                    
+                    @for(item of dataFormSelect; track item){
+          
+                      <div class="row">
+                        <div class="col-12">
+                          <p>
+                            <mat-form-field appearance="outline" class="w-100">
+                              
+                              <mat-label>{{item.name}}</mat-label>
+                              <mat-select formControlName={{item.type}}>
+          
+                                @for (data of item.data; track data) {
+          
+                                  @if(item.type == 'turno' || item.type == 'criticidad' || item.type == 'calendario'){
+                                    <mat-option [value]="data.id">{{data.name}}</mat-option>
+                                  }
+          
+                                  @if(item.type == 'cliente'){
+                                    <mat-option (click)="obtenerEquipos()" [value]="data.id">{{data.name}}</mat-option>
+                                  }
+          
+                                  @if(item.type == 'tipo_equipo'){
+                                    <mat-option [value]="data.id">{{data.name}}</mat-option>
+                                  }
+          
+                                }
+                              </mat-select>
+                              
+                            </mat-form-field>
+                          </p>
+                        </div>
+                      </div>
+          
+                    }
+          
+                    @for(item of dataFormInput; track item){
+          
+                      <div class="row">
+          
+                        <div class="col-12">
+                          <p>
+                            <mat-form-field appearance="outline" class="w-100">
+                              
+                              <mat-label>{{item.name}}</mat-label>
+                              
+                              <input type="text" matInput placeholder={{item.name}} formControlName={{item.type}}>
+                              <mat-icon matSuffix>{{item.icon}}</mat-icon>
+                            </mat-form-field>
+                          </p>
+                        </div>
+          
+                      </div>
+          
+                    }
+          
+                    <hr>
+                    <div class="row">
+                      <mat-checkbox formControlName="acreditacion">Acreditacion</mat-checkbox>
+                    </div>
+                    <hr>
+                    <p>
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Ultima mantencion</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="ultima_mantencion">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </p>
+                    
+                    <button (click)="updateEquipment()" class="w-75" mat-flat-button>Editar</button>
+          
+                  </form>
+                </div>
+                    
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+  
+        </div>
+      </div>
+
+      
+      <hr>
+      <div style="display: flex; justify-content: center; margin-right: 50px;">
+        <mat-paginator 
+          [length]="paginationData?.pageCount"
+          [pageSize]="paginationData?.pageSize"
+          [pageIndex]="paginationData?.pageIndex - 1"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="onPageChange($event)"
+          aria-label="Select page">
+        </mat-paginator>
+      </div>
+        
+      <button (click)="drawer.toggle()"  style="position: fixed; right: 5%; bottom: 20%; background-color: rgb(35, 81, 209); z-index: 1000;" mat-fab>
+        <mat-icon style="color: white;">filter_alt</mat-icon>
+      </button>
+
+      <br>
+      <hr>
+    </ion-content>
+    
+  </div>
+
+  <app-toast-sonner></app-toast-sonner>
+
+</mat-drawer-container>
+
+
+
+

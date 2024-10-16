@@ -1,0 +1,8 @@
+{
+  "name": "app-QRC",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+  
+}

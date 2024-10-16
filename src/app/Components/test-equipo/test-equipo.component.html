@@ -1,0 +1,64 @@
+<div class="container" style="height: 100vh;">
+  <br>
+
+  <mat-card>
+      <mat-card-content style="max-height: 800px; overflow-y: auto;">
+          
+          <table mat-table [dataSource]="dataSource" >
+  
+              <!-- Name Column -->
+              <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef> Name </th>
+                  <td mat-cell *matCellDef="let element">
+                  {{element.name}}
+                  
+                  </td>
+              </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr #button  (click)="openModalDetalleEquipo(row)" mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+          
+          </table>
+  
+      </mat-card-content>
+  </mat-card>
+
+  <button id="open-modal-add-equipo" style="position: fixed; right: 5%; bottom: 10%; background-color: rgb(35, 81, 209);" mat-fab>
+      <mat-icon style="color: white;">add</mat-icon>
+  </button>
+  
+</div>
+
+<ion-modal trigger="open-modal-add-equipo" (willDismiss)="onWillDismissRegister($event)" style="background-color: white;">
+  <ng-template>
+      <ion-header>
+          <ion-toolbar>
+              <ion-buttons slot="start">
+                  <ion-button (click)="cancelRegister()"><mat-icon>close</mat-icon></ion-button>
+              </ion-buttons>
+          
+          </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+          
+          <h5 class="text-center">Crear equipo</h5>
+          <div class="text-center">
+          <form [formGroup]="addForm">
+
+              <p>
+              <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Nombre</mat-label>
+                  <input type="text" matInput placeholder="Nombre y Apellido" formControlName="nombre">
+                  <mat-icon matSuffix>precision_manufacturing</mat-icon>
+                  
+              </mat-form-field>
+              </p>
+
+              <button (click)="addEquipo()" class="w-75" mat-flat-button [disabled]="!addForm.valid">Crear</button>
+
+          </form>
+          </div>
+          
+      </ion-content>
+  </ng-template>
+</ion-modal>

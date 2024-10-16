@@ -1,0 +1,71 @@
+<mat-dialog-content class="mat-typography " style="text-align: center;">
+
+  <h6 mat-dialog-title>Detalle Usuario</h6>
+  
+  <form [formGroup]="userDetailForm" style="margin-top: 20px;">
+
+    <p>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="name" matInput placeholder="Nombre">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Username</mat-label>
+        <input formControlName="username" matInput placeholder="username">
+        <mat-icon matSuffix>id_card</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline" class="w-100">
+            
+        <mat-label>Posicion</mat-label>
+        <mat-select formControlName="position">
+          @for (position of positions; track position) {
+            <mat-option [value]="position.id">{{position.name}}</mat-option>
+          }
+        </mat-select>
+        
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Email">
+        <mat-icon matSuffix>mail</mat-icon>
+      </mat-form-field>
+    </p>
+
+    <br>
+    <button (click)="updateDetailUser()" type="button" class="w-75" mat-flat-button>Actualizar</button>
+
+  </form>
+  <hr>
+  <form [formGroup]="changepasswordForm">
+    
+    <h6 mat-dialog-title>Actualizar contraseña</h6>
+
+    <mat-card>
+      <mat-card-content>
+
+        <p>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Nueva Contraseña</mat-label>
+            <input  matInput placeholder="Contraseña" formControlName="password">
+            <mat-icon matSuffix>password</mat-icon>
+          </mat-form-field>
+        </p>
+
+        <button (click)="updateDetailUser()" type="button" class="w-75" mat-flat-button>Actualizar</button>
+
+      </mat-card-content>
+    </mat-card>
+
+  </form>
+  
+</mat-dialog-content>

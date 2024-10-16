@@ -1,0 +1,67 @@
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ion-content {
+    --ion-background-color: #ffffff; /* Color blanco */
+    --color: #000000;
+}
+
+ion-toolbar {
+  --background: #ffffff; /* Color blanco */
+  --color: #000000; /* Color del texto */
+  --ion-background-color: #ffffff; /* Color blanco */
+  --background-color: #ffffff;
+}
+  
+  .example-sidenav {
+    padding: 20px;
+  
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .drawer-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1; /* Ocupa el espacio restante */
+    height: 100vh;
+  }
+
+  .circle-button-blue {
+    color: white;
+    background-color: rgba(57, 89, 178, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+
+  .circle-button-white {
+    color: black;
+    background-color: rgb(220, 224, 245);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .circle-button-option {
+    margin-right: 5px;
+    width: 53px; 
+    height: 53px;
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Ajusta la altura según sea necesario */
+  }

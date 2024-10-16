@@ -1,0 +1,26 @@
+<div class="container" style="overflow-y: auto;">
+  <mat-list>
+    <div mat-subheader>Documentos</div>
+    <mat-icon mat-button style="margin-left: 40px;" (click)="goBack()" *ngIf="currentPath" >arrow_back</mat-icon>
+    <ng-container *ngFor="let folder of folders">
+      <mat-list-item (click)="openFolder(folder.name)">
+        <mat-icon matListItemIcon>folder</mat-icon>
+        <div matListItemTitle>{{ folder.name }}</div>
+        <div matListItemLine>{{ folder.updated | date }}</div>
+      </mat-list-item>
+    </ng-container>
+    <ng-container *ngFor="let file of files">
+      <mat-list-item>
+        <mat-icon matListItemIcon>insert_drive_file</mat-icon>
+        <div matListItemTitle>{{ file.name }}</div>
+        <div matListItemLine>{{ file.updated | date }}</div>
+        <button mat-icon-button (click)="downloadFile(file.downloadUrl)">
+          <mat-icon>download</mat-icon>
+        </button>
+      </mat-list-item>
+    </ng-container>
+    <mat-divider></mat-divider>
+  </mat-list>
+  <br>
+  <hr>
+</div>

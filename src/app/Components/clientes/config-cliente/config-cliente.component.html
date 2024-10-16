@@ -1,0 +1,112 @@
+<div class="container" style="overflow-y: auto; height: 100vh; width: 100%;">
+
+  @if(type === 'usuarios' ){
+
+    <br>
+  
+    <p></p>
+    <form style="text-align: center;" class="w-100">
+      <mat-form-field style="border-radius: 20px; width: 100%;" appearance="outline">
+        <mat-label>Buscar Usuarios</mat-label>
+        <input type="text"
+          placeholder="Pick one"
+          aria-label="Number"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto" >
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-autocomplete (optionSelected)="onOptionSelectedUser($event)" autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  
+    <mat-card>
+      <mat-card-content>
+        
+        <table mat-table [dataSource]="dataSource" >
+  
+          <!-- Position Column -->
+          <ng-container matColumnDef="delete">
+            <th style="width: 30%; text-align: center;" mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 30%;" mat-cell *matCellDef="let element">
+              <button (click)="removeUsuario(organization.id, element.id)" mat-flat-button><mat-icon style="margin: 0 auto;" matSuffix>delete</mat-icon></button>
+  
+            </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td #button mat-cell *matCellDef="let element">{{element.userName}}</td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+      </mat-card-content>
+    </mat-card>
+  
+  }
+
+  @if(type === 'equipos' ){
+    <br>
+  
+    <p></p>
+    <form style="text-align: center;" class="w-100">
+      <mat-form-field style="border-radius: 20px; width: 100%;" appearance="outline">
+        <mat-label>Equipos</mat-label>
+        <input type="text"
+          placeholder="Seleccione"
+          aria-label="Number"
+          matInput
+          [formControl]="myControl"
+          [matAutocomplete]="auto" >
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-autocomplete (optionSelected)="onOptionSelectedEquip($event)" autoActiveFirstOption #auto="matAutocomplete">
+          @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">{{option}}</mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  
+    <mat-card>
+      <mat-card-content>
+        
+        <table mat-table [dataSource]="dataSource" >
+  
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+        
+          <!-- Position Column -->
+          <ng-container matColumnDef="delete">
+            <th style="width: 30%; text-align: center;" mat-header-cell *matHeaderCellDef>Eliminar</th>
+            <td style="width: 30%;" mat-cell *matCellDef="let element">
+              <button (click)="removeEquipo(organization.id, element.id)" mat-flat-button><mat-icon style="margin: 0 auto;" matSuffix>delete</mat-icon></button>
+  
+            </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td #button mat-cell *matCellDef="let element">{{element.descr}}</td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+  
+      </mat-card-content>
+    </mat-card>
+
+  }
+  <br>
+  <hr>
+</div>
+
