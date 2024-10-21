@@ -8,7 +8,7 @@ import { DashboardService } from 'src/app/Services/Dashboard/dashboard.service';
 import { Category } from 'src/app/Interfaces/category-equip';
 
 import { ChartModule } from 'primeng/chart';
-import { IonContent } from "@ionic/angular/standalone";
+import { IonContent, IonHeader, IonToolbar, IonTitle } from "@ionic/angular/standalone";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import {MatSelectModule} from '@angular/material/select';
@@ -40,8 +40,8 @@ interface PieChart {
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
-  imports: [IonContent, ChartModule, MatProgressSpinnerModule, CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule,
-    MatButtonModule, MatIconModule, MatMenuModule
+  imports: [IonContent, IonHeader, IonToolbar, IonTitle, ChartModule, MatProgressSpinnerModule, CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule,
+    MatButtonModule, MatIconModule, MatMenuModule, IonContent
   ]
 })
 export class InicioComponent  implements OnInit {

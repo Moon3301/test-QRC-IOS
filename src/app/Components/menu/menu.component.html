@@ -1,12 +1,15 @@
-<mat-toolbar>
+<ion-header>
+  <mat-toolbar>
 
-  <button (click)="drawer.toggle()" mat-icon-button>
-    <mat-icon>menu</mat-icon>
-  </button>
-  
-  
-  <img src="assets/img/TittleLogin.png" width="100px" height="50px" >
-</mat-toolbar>
+    <button (click)="drawer.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    
+    <img src="assets/img/TittleLogin.png" width="100px" height="50px" >
+  </mat-toolbar>
+</ion-header>
+
 
 <mat-drawer-container autosize>
 
@@ -33,11 +36,13 @@
       
   </mat-drawer>
 
-  <mat-drawer-content style="height: 100vh;">
+  <mat-drawer-content class="page-content" style="height: 100vh;">
     
     <app-toast-sonner></app-toast-sonner>
+    
     <ion-router-outlet></ion-router-outlet>
-      
+    
   </mat-drawer-content>
   
 </mat-drawer-container>
+

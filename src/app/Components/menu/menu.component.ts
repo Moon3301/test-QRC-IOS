@@ -13,6 +13,8 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { SecurityService } from 'src/app/Services/Security/security.service';
 import {MatDividerModule} from '@angular/material/divider';
 import { ToastSonnerComponent } from '../toast-sonner/toast-sonner.component';
+import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+
 export interface Section {
   name: string;
   icon: string;
@@ -26,7 +28,7 @@ export interface Section {
   styleUrls: ['./menu.component.scss'],
   standalone: true,
   imports: [IonList, IonRouterOutlet, MatSidenavModule, RouterModule, MatButtonModule, MatIconModule,
-    MatToolbarModule, MatListModule, MatDividerModule, ToastSonnerComponent]
+    MatToolbarModule, MatListModule, MatDividerModule, ToastSonnerComponent, IonHeader, IonToolbar, IonTitle, IonContent]
 })
 export class MenuComponent  implements OnInit {
 

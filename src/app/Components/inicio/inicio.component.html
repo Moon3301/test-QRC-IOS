@@ -1,80 +1,84 @@
-<div class="container">
-    <ion-content class="ion-padding">
 
-        
+<ion-content class="ion-padding" [fullscreen]="true">
 
-        <div *ngIf="isLoading" class="spinner-container">
-            <mat-spinner></mat-spinner>
-          </div>
+  <div class="container">
 
-          <div *ngIf="!isLoading">
-
-
-            <form [formGroup]="filterForm">
-                @for(item of dataFormSelect; track item){
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  
+    <div *ngIf="!isLoading">
+  
+      <form [formGroup]="filterForm">
+        @for(item of dataFormSelect; track item){
+            
+          <div class="row">
+            <div class="col-12">
+              <p>
+                <mat-form-field appearance="outline" class="w-100">
+                  
+                  <mat-label>{{item.name}}</mat-label>
+                  <mat-select [formControlName]="item.type">
+  
+                    @for (data of item.data; track data) {
+  
+                    <mat-option [value]="data.id">{{data.name}}</mat-option>
                     
-                    <div class="row">
-                      <div class="col-12">
-                        <p>
-                          <mat-form-field appearance="outline" class="w-100">
-                            
-                            <mat-label>{{item.name}}</mat-label>
-                            <mat-select [formControlName]="item.type">
-        
-                                @for (data of item.data; track data) {
-        
-                                <mat-option [value]="data.id">{{data.name}}</mat-option>
-                                
-                                }
-                            </mat-select>
-                            
-                          </mat-form-field>
-                        </p>
-                      </div>
-                    </div>
-        
-                  }
-            </form>
-
-            <div class="card flex justify-content-center">
-                <p class="text-center" >Mantenimientos Dia</p>
-                <button [matMenuTriggerFor]="menu" mat-mini-fab>
-                    <mat-icon>menu</mat-icon>
-                </button>
-
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="exportChartAsImage('chartPieDay', 'png')" >Exportar Imagen</button>
-                  <button mat-menu-item (click)="exportChartAsPDF('chartPieDay')">Exportar en PDF</button>
-                  <button mat-menu-item (click)="exportChartDataAsExcel(configPieChartDay.datasets[0].data, 'chartPieDay')">Exportar en xlsx</button>
-                  <button mat-menu-item (click)="exportChartDataAsCSV(configPieChartDay.datasets[0].data, 'chartPieDay')">Exportar en csv</button>
-                </mat-menu>
-
-                <p-chart id="chartPieDay" type="pie" [data]="configPieChartDay" [options]="optionsPieChart" />
-                
-            </div>
-            <hr>
-            <div class="card flex justify-content-center">
-                <p class="text-center" >Mantenimientos Noche</p>
-                <p-chart id="chartPieNight" type="pie" [data]="dataPieChartNight" [options]="optionsPieChart" />
-            </div>
-            <hr>
-            <div class="card flex justify-content-center">
-                <p class="text-center" >Criticidad Dia</p>
-                <p-chart id="chartBarDay" type="bar" [data]="dataBarChartDay" [options]="optionsBarChart" />
-            </div>
-            <hr>
-            <div class="card flex justify-content-center">
-                <p class="text-center" >Criticidad Noche</p>
-                <p-chart id="chartBarNight" type="bar" [data]="dataBarChartNight" [options]="optionsBarChart" />
+                    }
+                  </mat-select>
+                  
+                </mat-form-field>
+              </p>
             </div>
           </div>
-        
-
-    </ion-content>
-    <hr>
+  
+        }
+      </form>
+  
+      <div class="card flex justify-content-center">
+          <p class="text-center" >Mantenimientos Dia</p>
+          <button [matMenuTriggerFor]="menu" mat-mini-fab>
+              <mat-icon>menu</mat-icon>
+          </button>
+  
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="exportChartAsImage('chartPieDay', 'png')" >Exportar Imagen</button>
+            <button mat-menu-item (click)="exportChartAsPDF('chartPieDay')">Exportar en PDF</button>
+            <button mat-menu-item (click)="exportChartDataAsExcel(configPieChartDay.datasets[0].data, 'chartPieDay')">Exportar en xlsx</button>
+            <button mat-menu-item (click)="exportChartDataAsCSV(configPieChartDay.datasets[0].data, 'chartPieDay')">Exportar en csv</button>
+          </mat-menu>
+  
+          <p-chart id="chartPieDay" type="pie" [data]="configPieChartDay" [options]="optionsPieChart" />
+          
+      </div>
+      <hr>
+      <div class="card flex justify-content-center">
+          <p class="text-center" >Mantenimientos Noche</p>
+          <p-chart id="chartPieNight" type="pie" [data]="dataPieChartNight" [options]="optionsPieChart" />
+      </div>
+      <hr>
+      <div class="card flex justify-content-center">
+          <p class="text-center" >Criticidad Dia</p>
+          <p-chart id="chartBarDay" type="bar" [data]="dataBarChartDay" [options]="optionsBarChart" />
+      </div>
+      <hr>
+      <div class="card flex justify-content-center">
+          <p class="text-center" >Criticidad Noche</p>
+          <p-chart id="chartBarNight" type="bar" [data]="dataBarChartNight" [options]="optionsBarChart" />
+      </div>
+    </div>
     
-</div>
-<br>
+    <hr>
+    <br>
+
+  </div>
+  
+  <hr>
+    <br>
+</ion-content>
+
+
+
 
 
 

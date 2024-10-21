@@ -1,6 +1,8 @@
 <div class="container" style="overflow-y: auto;">
   <mat-list>
     <div mat-subheader>Documentos</div>
+    <mat-divider></mat-divider>
+    
     <mat-icon mat-button style="margin-left: 40px;" (click)="goBack()" *ngIf="currentPath" >arrow_back</mat-icon>
     <ng-container *ngFor="let folder of folders">
       <mat-list-item (click)="openFolder(folder.name)">
@@ -22,5 +24,5 @@
     <mat-divider></mat-divider>
   </mat-list>
   <br>
-  <hr>
+  
 </div>

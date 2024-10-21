@@ -41,3 +41,28 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
+
+.page-content {
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+}
+
+.toolbar {
+    padding-top: constant(safe-area-inset-top); /* Para navegadores antiguos */
+    padding-top: env(safe-area-inset-top); /* Para navegadores modernos */
+}
+
+.container {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-bottom: 20px;
+}
+
+ion-modal {
+    --padding-top: env(safe-area-inset-top);
+    --padding-bottom: env(safe-area-inset-bottom);
+}
+
