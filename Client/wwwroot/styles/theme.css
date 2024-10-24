@@ -1,0 +1,617 @@
+﻿:root, [theme="light"]
+{
+    --theme: rgba(245, 245, 245, 1);
+    --translucid: rgba(255,255,255,0.9);
+    --card: rgba(255,255,255,1);
+    --brand: #214A81;
+    --color: #222;
+    --title: #111;
+    --label: #DDD;
+    --input: #AAA;
+}
+
+[theme="dark"]
+{
+    --theme: rgba(45, 45, 45, 1);
+    --translucid: rgba(0,0,0,0.9);
+    --card: rgba(0,0,0,0.96);
+    --brand: #7AB4E1;
+    --color: #DDD;
+    --title: #FFF;
+    --label: #666;
+    --input: #999;
+}
+
+
+
+
+
+
+
+
+#root
+{
+    min-height: 640px;
+}
+
+
+.row
+{
+    padding: 24px 0 24px 0 !important;
+    display: block;
+}
+
+.top
+{
+    padding-top: 60px !important;
+    vertical-align: middle;
+}
+
+.brand
+{
+    color: var(--brand) !important;
+}
+
+.border
+{
+    border-radius: 36px;
+}
+
+.logo img
+{
+padding: 6px;
+    margin: 0 !important;
+    filter: blur(0) !important;
+}
+
+.theme
+{
+    background-color: var(--theme);
+}
+
+
+.transparent
+{
+    opacity: 0.6;
+}
+
+.translucid
+{
+    position: relative;
+    background-color: var(--translucid) !important;
+    color: var(--color);
+    padding: 6px !important;
+    display: block;
+}
+
+#loader
+{
+    margin: auto;
+    font-size: 100px;
+    height: 0.3em;
+    width: 0.3em;
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    transform-style: preserve-3d;
+    z-index: 1000000;
+    display: none;  
+}
+
+
+
+#modal
+{
+    opacity: 0;
+    display: none;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--theme);
+    z-index: 1000;
+    transition: opacity 0.6s ease;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.modal
+{
+    position: absolute !important;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: var(--theme);
+    height: 100%;
+/*    transition: opacity .9s ease;
+*/}
+.modal .view
+{
+    top: 100px;
+}
+
+.close
+{
+    padding: 3px 6px;
+    float: right;
+    cursor: pointer;
+    font-size: 26px;
+    color: var(--brand);
+    background: var(--theme);
+    border-radius: 3px;
+    display: block;
+}
+
+.close:hover
+{
+    background: var(--card);
+}
+
+
+.container
+{
+    display: block;
+    justify-content: center;
+    width: auto;
+    max-width: 96%;
+    margin: 0 auto;
+    padding: 0 24px;
+    align-items: center;
+    position: relative;
+}
+
+.container:before, .container:after
+{
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.container:after
+{
+    clear: both;
+}
+
+.result
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+
+#banner
+{
+    width: 100vw;
+    height: auto;
+    display: block;
+    font-style: normal;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-blend-mode: darken !important;
+    align-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 0;
+    background-size: cover !important;
+    object-fit: cover !important;
+    background-attachment: fixed !important;
+    min-height: 320px;
+    vertical-align: middle !important;
+    padding-top: 40px !important;
+}
+
+
+
+
+/*#banner::before
+{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--translucid);
+}*/
+.background
+{
+    background: url(/images/software.webp) no-repeat top;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    vertical-align: middle;
+    align-content: center;
+    align-items: center;
+    clear: both;
+    background-size: cover !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    object-fit: cover;
+    min-height: 1080px;
+    height: auto;
+}
+
+.overlay
+{
+    position: relative;
+    justify-content: center; /* Center cards horizontally */
+    align-items: center; /* Center cards vertically */
+    text-align: center;
+    clear: both;
+    display: flex;
+    min-height: 1080px;
+    bottom: 36px;
+}
+
+.card
+{
+    position: relative;
+    padding: 12px;
+    background: var(--card);
+    text-align: left;
+    box-sizing: border-box;
+    vertical-align: top;
+    text-align: left !important;
+}
+
+
+
+/*
+.card [class^="icon-"], .card [class*=" icon-"], .modal [class^="icon-"], .modal [class*=" icon-"]
+{
+    color: var(--brand);
+}
+*/
+
+.card i
+{
+    overflow: visible;
+    line-height: 1.2em;
+}
+
+.card img
+{
+    margin: 12px 0;
+}
+
+.card label i
+{
+    color: var(--color);
+    margin-right: 12px;
+}
+
+
+.title
+{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 1.4em;
+    color: var(--title) !important;
+    text-transform: initial;
+    padding: 12px 0 !important;
+    line-height: 1.4em !important;
+    font-weight: bold;
+}
+
+
+
+.value
+{
+    font-family: monospace;
+    color: var(--title) !important;
+    font-size: 1.7em;
+    font-weight: normal;
+    overflow: visible;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.captioned
+{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.captioned img
+{
+    width: 100%;
+    height: auto;
+    opacity: 0.9;
+}
+
+.captioned img:hover
+{
+    opacity: 0.6;
+}
+
+.captioned div
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--translucid);
+padding: 6px;
+color: var(--title) !important;
+}
+
+
+
+.faded
+{
+    display: inline-block;
+    position: relative;
+}
+
+.faded::after
+{
+    font-family: Helvetica, Arial;
+    content: '...';
+    background: linear-gradient(to right, var(--color), var(--theme)); /* Define your gradient colors */
+    -webkit-background-clip: revert-layer;
+    background-clip: revert-layer;
+    color: transparent;
+    display: inline-block; /* To ensure the text doesn't wrap */
+}
+
+.message
+{
+    color: var(--brand);
+}
+
+.fixed
+{
+    position: fixed !important;
+    z-index: 5000;
+}
+
+.middle
+{
+    vertical-align: middle !important;
+}
+
+.baseline
+{
+    vertical-align: baseline;
+}
+
+
+
+
+
+
+.bottom
+{
+    bottom: 0 !important;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.overline
+{
+    text-decoration: overline;
+}
+
+.underline
+{
+    text-decoration: underline;
+}
+
+
+.center
+{
+    display: block;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: 0 auto !important;
+    text-align: center;
+}
+
+
+.left_text
+{
+    text-align: left !important;
+}
+.center_text
+{
+    text-align: center !important;
+}
+.right_text
+{
+    text-align: right !important;
+}
+.justify_text
+{
+    text-align: justify !important;
+}
+
+.float_right
+{
+    overflow: visible;
+    float: right !important;
+    display: inline-block;
+    clear: right;
+}
+
+.float_left
+{
+    overflow: hidden;
+    float: left !important;
+    display: inline-block;
+}
+
+
+
+.visible
+{
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.invisible
+{
+    display: none;
+}
+
+.initial
+{
+    text-transform: initial;
+}
+
+.capitalize
+{
+    text-transform: capitalize !important;
+}
+
+.lowercase
+{
+    text-transform: lowercase;
+}
+
+.uppercase
+{
+    text-transform: uppercase;
+}
+
+.italic
+{
+    font-style: italic;
+}
+
+.hand
+{
+    cursor: pointer;
+}
+
+.nowrap
+{
+    white-space: nowrap;
+}
+
+.mobile_only
+{
+    display: block;
+}
+
+
+
+.small, .medium, .large
+{
+    width: 100% !important;
+    unicode-bidi: normal !important;
+}
+
+.small
+{
+    max-width: 320px !important;
+}
+
+.medium
+{
+    max-width: 640px !important;
+}
+
+.large
+{
+    max-width: 1024px !important;
+}
+
+
+
+.inside
+{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.inside i
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    color: var(--input) !important;
+    overflow: hidden;
+}
+
+
+.icon-1x
+{
+    font-size: 26px;
+}
+
+.icon-2x
+{
+    font-size: 45px;
+}
+
+.icon-3x
+{
+    font-size: 78px;
+}
+
+.highlited
+{
+    color: var(--title);
+}
+
+
+
+.video
+{
+    display: block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.video object
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.error
+{
+    clear: both;
+}
+
+.error, .red
+{
+    color: #FF0000 !important;
+}
+
+
+.borderless{
+border: none !important;
+}
+
+.thumbnails li{
+    display: inline-block;
+padding: 3px;
+margin: 3px;
+background: var(--theme)
+}
+
+#downloads li
+{ padding: 6px; }

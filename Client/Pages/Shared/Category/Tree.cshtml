@@ -1,0 +1,186 @@
+﻿@model int
+<style>
+    #treeview-container
+    {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    ul
+    {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+
+    li
+    {
+        position: relative;
+    }
+
+    /* Styles for checkboxes */
+    input[type="checkbox"]
+    {
+        margin-right: 5px;
+    }
+
+    /* Styles for caret icons */
+    .caret
+    {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    /* Styles for collapsed children */
+    .child-container
+    {
+        display: none;
+    }
+
+    /* Styles for expand/collapse caret icons */
+    .caret::before
+    {
+        content: "▶";
+        margin-right: 5px;
+    }
+
+    .caret.caret-open::before
+    {
+        content: "▼";
+    }
+
+    /* Additional styles for better appearance */
+    label
+    {
+        cursor: pointer;
+    }
+
+    label:hover
+    {
+        text-decoration: underline;
+    }
+
+    ul ul
+    {
+        margin: 5px 0;
+    }
+</style>
+<div id="treeview-container">
+	<!-- The treeview will be dynamically generated here -->
+</div>
+<script>
+        var callback = function(result){
+            renderTreeView(result);
+        }
+        post('/Category/MeasurementStep', null, callback);
+
+        // Function to render the treeview
+        function renderTreeView(data, parent = 0) {
+            var ul = $("<ul>");
+            parent.append(ul);
+
+            $.each(data, function (index, item) {
+                var li = $("<li>");
+                ul.append(li);
+
+                var checkbox = $("<input>", {
+                    type: "checkbox",
+                    value: item.id
+                });
+                li.append(checkbox);
+
+                var label = $("<label>", {
+                    text: item.name,
+                    for: "checkbox-" + item.id
+                });
+                li.append(label);
+
+                if (item.children && item.children.length > 0) {
+                    // Add a caret icon for expand/collapse functionality
+                    var caret = $("<span>", {
+                        class: "caret",
+                        text: "▶"
+                    });
+                    li.prepend(caret);
+
+                    // Render child elements as hidden initially
+                    var childContainer = $("<div>", { class: "child-container" });
+                    li.append(childContainer);
+                    renderTreeView(item.children, childContainer);
+                }
+            });
+        }
+
+        // Function to handle treeview expansion and collapse
+        function handleCaretClick() {
+            var caret = $(this);
+            var parentLi = caret.closest("li");
+            var childContainer = parentLi.find(".child-container");
+
+            // Toggle visibility and caret direction
+            childContainer.toggle();
+            caret.text(childContainer.is(":visible") ? "▼" : "▶");
+        }
+
+        // Function to handle parent checkbox click and select/deselect child checkboxes
+        function handleParentCheckboxClick() {
+            var parentCheckbox = $(this);
+            var parentLi = parentCheckbox.closest("li");
+            var childCheckboxes = parentLi.find(":checkbox");
+
+            // Set child checkboxes state to match the parent checkbox
+            childCheckboxes.prop("checked", parentCheckbox.prop("checked"));
+        }
+
+        // Function to handle checkbox click and make AJAX call
+        function handleCheckboxClick() {
+            var checkbox = $(this);
+            var isChecked = checkbox.prop("checked");
+            var value = checkbox.val();
+
+            // Perform AJAX call here, replace 'ajax_url' with your server-side script URL
+            $.ajax({
+                url: 'ajax_url',
+                method: 'POST',
+                data: { checkboxValue: value, isChecked: isChecked },
+                success: function (response) {
+                    // Handle the AJAX success response if needed
+                },
+                error: function (xhr, status, error) {
+                    // Handle the AJAX error if needed
+                }
+            });
+        }
+
+        // Sample data for the treeview, replace this with your actual data
+        var sampleData = [
+            {
+                id: 1,
+                name: "Item 1",
+                children: [
+                    { id: 2, name: "Subitem 1.1", children: [] },
+                    { id: 3, name: "Subitem 1.2", children: [] }
+                ]
+            },
+            {
+                id: 4,
+                name: "Item 2",
+                children: [
+                    { id: 5, name: "Subitem 2.1", children: [] },
+                    { id: 6, name: "Subitem 2.2", children: [] }
+                ]
+            }
+        ];
+
+        // Render the treeview
+        renderTreeView(sampleData, $("#treeview-container"));
+
+        // Attach click event handler to carets for expand/collapse functionality
+        $(document).on("click", ".caret", handleCaretClick);
+
+        // Attach click event handler to parent checkboxes
+        $(document).on("change", ".child-container :checkbox:first", handleParentCheckboxClick);
+
+        // Attach click event handler to checkboxes
+        $(document).on("change", ":checkbox:not(.child-container :checkbox:first)", handleCheckboxClick);
+</script>

@@ -1,0 +1,32 @@
+﻿@page
+@model Client.Pages.Shared.Organization.IndexModel
+@{
+}
+
+<div class="row container">
+<h1>
+	Administración de Clientes
+</h1>	
+<div class="card medium center">
+	<table id="table" class="table">
+		<thead>
+			<tr>
+				<th>
+					Cliente
+				</th>
+				<th>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Organizations)
+			{
+				<tr>
+					<td>@item.Descr</td>
+					<td><a href="/Organization/Configuration/@item.Id/@item.Descr.ToUrl()"><i class="icon-settings icon-1x"></i></a></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	</div>
+</div>

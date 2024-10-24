@@ -1,0 +1,99 @@
+﻿@using Client.Controllers
+@model EquipmentEdit
+@if (Model != null)
+{
+	<div class="card large center">
+	<form method="post" id="Equipment_Form">
+		<input type="hidden" asp-for="Input.Id" />
+		<input type="hidden" asp-for="Input.QR" />
+		<input type="hidden" asp-for="Input.BuildingId" />
+		<input type="hidden" asp-for="Input.TowerId" />
+
+		<div class="one_half">
+			<div class="one_quarter">
+				<label asp-for="Input.Shift">Turno</label>
+				<select asp-for="Input.Shift" asp-items="Html.GetEnumSelectList<Shift>()" class="Equipment_Input"></select>
+			</div>
+			<div class="one_quarter">
+				<label asp-for="Input.Priority">Criticidad</label>
+				<select asp-for="Input.Priority" class="Equipment_Input">
+					<option value="0">Selecciona</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</div>
+				<div class="one_half">
+					<label asp-for="Input.OrganizationId">Cliente</label>
+					<select asp-for="Input.OrganizationId" asp-items="Model.OrganizationCollection" class="Equipment_Input">
+					</select>
+				</div>
+		</div>
+		<div class="one_half">
+
+
+				<div class="one_half">
+					<label asp-for="Input.CategoryId">Tipo de Equipo</label>
+					<select asp-for="Input.CategoryId" asp-items="Model.CategoryCollection">
+						<option value="0">Selecciona</option>
+					</select>
+				</div>
+			<div class="one_half">
+					<label asp-for="Input.Calendar">Calendario</label>
+					<select asp-for="Input.Calendar" asp-items="Html.GetEnumSelectList<EquipmentCalendar>()" class="Equipment_Input"></select>				
+				</div>
+		</div>
+		<div class="one_half">
+			<div class="one_half">
+				<label asp-for="Input.Descr">Descripción</label>
+				<input type="text" asp-for="Input.Descr" class="Equipment_Input" />
+			</div>
+			<div class="one_half">
+				<label asp-for="Input.Location">Ubicación</label>
+				<input type="text" asp-for="Input.Location" class="Equipment_Input" />
+			</div>
+		</div>
+		<div class="one_half">
+			<div class="one_half">
+				<label asp-for="Input.Asset"># Activo</label>
+				<input type="text" asp-for="Input.Asset" class="Equipment_Input" />
+			</div>
+			<div class="one_half">
+				<label asp-for="Input.PhysicalFile">Archivo Físico</label>
+				<input type="text" asp-for="Input.PhysicalFile" class="Equipment_Input" />
+			</div>
+		</div>
+		<div class="one_half">
+			<div class="one_half">
+				<label asp-for="Input.Brand">Marca</label>
+				<input type="text" asp-for="Input.Brand" class="Equipment_Input" />
+			</div>
+			<div class="one_half">
+				<label asp-for="Input.Model">Modelo</label>
+				<input type="text" asp-for="Input.Model" class="Equipment_Input" />
+			</div>
+		</div>
+		<div class="one_half">
+			<div class="one_half">
+				<label asp-for="Input.Serial"># Serie</label>
+				<input type="text" asp-for="Input.Serial" class="Equipment_Input" />
+			</div>
+			<div class="one_half">
+				<label asp-for="Input.Accreditation">Acreditación</label>
+				<input type="checkbox" asp-for="Input.Accreditation" class="Equipment_Input" />
+			</div>
+		</div>
+		
+		<div class="one_quarter">
+			<label asp-for="Input.LastMaintenance">Última Mantención</label>
+			<input asp-for="Input.LastMaintenance" type="date" asp-format="{0:yyyy-MM-dd}" onblur="javascript:Update('Equipment')" />
+		</div>
+		
+	</form>
+	</div>
+	<div id="Equipment_Part" class="card large center">
+
+	</div>
+	<br />
+}

@@ -1,0 +1,43 @@
+﻿@using Client.Controllers
+@model MaintenanceIndexModel
+<div class="card large center">
+    <h3><i class="icon-calendar-linear icon-1x">&nbsp;</i>Mantenimientos</h3>
+    <form method="post" id="Maintenance_Form">
+        <input asp-for="Input.Id" type="hidden" />
+        <input asp-for="Input.EquipmentId" type="hidden" />
+        <input asp-for="Input.OrganizationId" type="hidden" />
+
+        <div class="one_third">
+            <label asp-for="Input.CategoryId">Tipo de Equipo</label>
+            <select asp-for="Input.CategoryId" asp-items="Model.CategorySelect" class="Maintenance_Input">
+                <option value="0">Selecciona</option>
+            </select>
+        </div>
+        <div class="one_third">
+            <label asp-for="Input.PhysicalFile">Archivo Físico</label>
+            <select asp-for="Input.PhysicalFile" asp-items="Model.PhysicalSelect" class="Maintenance_Input">
+                <option value="">Selecciona</option>
+            </select>
+        </div>
+        <div class="one_third">
+            <label asp-for="Input.Status">Estado</label>
+            @if (User.IsInRole("Cliente"))
+            {
+                <select asp-for="Input.Status" class="Maintenance_Input">
+                    <option selected value="@MaintenanceStatus.Finalizada">@MaintenanceStatus.Finalizada.ToString()</option>
+                </select>
+            }
+            else
+            {
+                <select asp-for="Input.Status" asp-items="Html.GetEnumSelectList<MaintenanceStatus>()" class="Maintenance_Input"></select>
+            }
+        </div>
+    </form>
+
+    <div id="Maintenance_Result">
+        @{
+            await Html.RenderPartialAsync("Maintenance/Result", Model.Result);
+        }
+    </div>
+</div>
+

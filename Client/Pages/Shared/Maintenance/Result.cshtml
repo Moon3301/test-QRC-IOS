@@ -1,0 +1,63 @@
+﻿@model PaginatedResult<MaintenanceView>
+@{
+	var roles = new[] { "Administrador", "Supervisor", "Tecnico" };
+bool isInAnyRole = roles.Any(role => User.IsInRole(role));
+}
+<div>
+	@if (Model != null)
+	{
+		<br />
+		<span class="center" style="display: block;">
+			<a href="#" class="button" onclick="Batch()"><i class="icon-printer icon-1x middle"></i><span class="middle">Imprimir</span></a>
+		</span>
+		<br />
+		await Html.RenderPartialAsync("Pagination", Model.Pages);
+		<table id="table" class="table">
+			<thead>
+				<tr>
+@* 					<th>
+						<a href="#" class="delete" onclick="MaintenanceDelete()"><i class="icon-file-minus icon-1x"></i></a>
+					</th>
+ *@					<th class="max">Equipo</th>
+					<th class="max">Serie</th>
+					<th class="max">Técnico</th>
+					<th>Programada</th>
+					<th>Estado</th>
+					@if (isInAnyRole)
+					{
+						<th>OT</th>
+					}
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					int index = 0;
+					foreach (MaintenanceView item in Model.Items)
+					{
+						index++;
+						<tr>
+							<td class="max">@item.Equipment.Category</td>
+							<td class="max"><a href="javascript:Edit('Equipment', @item.EquipmentId)">@item.Equipment.Serial</a></td>
+							<td class="max">@item.TechnicianName</td>
+							<td>
+								@item.Programmed.ToString("d /M /yyyy")
+							</td>
+							<td>@item.Status.ToString()</td>
+							@if (isInAnyRole)
+							{
+								<td><a href="javascript:Work(@item.Id)"><i class="icon-clipboard icon-1x"></i></a></td>
+							}
+							<td>
+								@if(item.Status == MaintenanceStatus.Finalizada)
+								{
+									<a href="javascript:Print(@item.Id)"><i class="icon-printer icon-1x"></i></a>
+								}
+							</td>
+							</tr>
+					}
+				}
+			</tbody>
+		</table>
+	}
+</div>

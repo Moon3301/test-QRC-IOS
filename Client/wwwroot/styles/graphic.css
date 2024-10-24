@@ -1,0 +1,27 @@
+﻿@import 'https://code.highcharts.com/css/highcharts.css';
+/* This will re-declare variables globally */
+:root
+{
+}
+
+
+.highcharts-tooltip path
+{
+    fill: var(--theme) !important;
+    stroke: var(--title) !important;
+    color: var(--color) !important;
+    opacity: 0.9 !important;
+    -webkit-tap-highlight-color: var(--title) !important;
+}
+
+.highcharts-tooltip text
+{
+    fill: var(--color) !important;
+    color: var(--color) !important;
+}
+
+
+.highcharts-contextbutton
+{
+    fill: var(--theme) !important;
+}

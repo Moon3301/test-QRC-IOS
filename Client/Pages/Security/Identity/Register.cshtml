@@ -1,0 +1,27 @@
+﻿@page
+@model RegisterModel
+@{
+	Layout = "_Layout.cshtml";
+    ViewData["Title"] = "Nuevo Usuario"; 
+}
+
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="error"></div>
+        <label asp-for="Input.Email"><i class="icon-mail icon-1x"></i>Email</label>
+        <span asp-validation-for="Input.Email" class="error"></span>
+        <input asp-for="Input.Email" />
+        <label asp-for="Input.Password"><i class="icon-key icon-1x"></i>Contraseña</label>
+        <small><i>Debe incluir números y letras.</i></small>
+        <br />
+        <span asp-validation-for="Input.Password" class="error"></span>
+        <span class="inside">
+        <input asp-for="Input.Password" />&nbsp;<a href="#" onclick="showPassword('Input_Password'); return false;"><i class="icon-eye icon-1x"></i></a>
+        </span>
+        <label asp-for="Input.ConfirmPassword"><i class="icon-unlock icon-1x"></i>Confirmación de Contraseña</label>
+        <span asp-validation-for="Input.ConfirmPassword" class="error"></span>
+        <span class="inside">
+        <input asp-for="Input.ConfirmPassword" />&nbsp;<a href="#" onclick="showPassword('Input_ConfirmPassword'); return false;"><i class="icon-eye icon-1x"></i></a>
+        </span>
+    <button type="submit">Registrarse</button>
+</form>

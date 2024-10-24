@@ -1,0 +1,13 @@
+﻿@page
+@model Client.Pages.ScanModel
+@{
+}
+<div class="row top">
+    <div id="reader" class="container"></div>
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <script defer async src="~/scripts/qr.js" asp-append-version="true"></script>
+    <script defer async src="~/scripts/print.js" asp-append-version="true"></script>
+
+}

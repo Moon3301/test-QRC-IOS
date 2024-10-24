@@ -1,0 +1,24 @@
+﻿@model List<MeasurementView>
+<h3><i class="icon-speedometer-linear icon-1x">&nbsp;</i>Mediciones</h3>
+<div>
+	@Html.AntiForgeryToken()
+	<table id="table" class="table">
+		<tbody>
+			@{
+				int index = 0;
+				foreach (MeasurementView item in Model)
+				{
+					index++;
+					<tr>
+						<td>
+							@item.Descr
+						</td>
+						<td>
+							<span class="float_right"><input type="checkbox" class="association" value="@item.Id" checked="@item.Associated" /></span>
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,105 @@
+﻿@page "{handler?}"
+@model EquipmentModel
+@{
+	var currentYear = DateTime.UtcNow.Year;
+	var currentMonth = DateTime.UtcNow.Month;
+	var months = new Dictionary<int, string>()
+	{
+	{ 0, "Selecciona" },
+	{ 1, "Enero" },
+	{ 2, "Febrero" },
+	{ 3, "Marzo" },
+	{ 4, "Abril" },
+	{ 5, "Mayo" },
+	{ 6, "Junio" },
+	{ 7, "Julio" },
+	{ 8, "Agosto" },
+	{ 9, "Septiembre" },
+	{ 10, "Octubre" },
+	{ 11, "Noviembre" },
+	{ 12, "Diciembre" }
+	};
+}
+@section styles
+	{
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	}
+<div class="row container">
+	<div class="card center">
+	@{
+		await Html.RenderPartialAsync("Equipment/Edit", Model.Input);
+	}
+	</div>
+	<br />
+	<div class="card medium center">
+		<form method="post" id="Date_Form">
+			<div class="one_half">
+				<label>Mes</label>
+				<select id="month" name="month" class="Equipment_Input">
+					@foreach (var month in months)
+					{
+						if (month.Key == DateTime.UtcNow.Month)
+						{
+							<option value="@month.Key" selected>@month.Value</option>
+						}
+						else
+						{
+							<option value="@month.Key">@month.Value</option>
+						}
+					}
+				</select>
+			</div>
+			<div class="one_half">
+				<label>Año</label>
+				<select id="year" name="year" class="Print_Input">
+					@for (var year = currentYear - 3; year <= currentYear + 1; year++)
+					{
+						if (year == DateTime.UtcNow.Year)
+						{
+							<option value="@year" selected>@year</option>
+						}
+						else
+						{
+							<option value="@year">@year</option>
+						}
+					}
+				</select>
+			</div>
+		</form>
+		<br />
+		<span class="center">
+			<a class="button" href="javascript:MonthPrint()"><i class="icon-printer icon-1x">&nbsp;</i>Imprimir Reporte</a>
+		</span>
+		<br />
+	</div>
+	<br />
+	<div class="card large center">
+		<div class="one_third">
+			<label asp-for="Maintenance.SupervisorId">Supervisor</label>
+			<select asp-for="Maintenance.SupervisorId"></select>
+		</div>
+		<div class="one_third">
+			<label asp-for="Maintenance.TechnicianId">Técnico</label>
+			<select asp-for="Maintenance.TechnicianId"></select>
+		</div>
+		<div class="one_third">
+			<label asp-_for="Maintenance.HelperId">Ayudante</label>
+			<select asp-for="Maintenance.HelperId"></select>
+		</div>
+		@* <div class="one_quarter">
+			<label asp-for="Maintenance.Programmed">Fecha</label>
+			<input asp-for="Maintenance.Programmed" asp-format="{0:yyyy-MM-ddTHH:mm}" type="date" />
+		</div> *@
+		<br /><br />
+		<span class="center">
+			<a href="#" class="button" onclick="MaintenanceCreate()"><i class="icon-calendar icon-1x middle"></i><span class="middle">Planificar Mantenimientos</span></a>
+		</span>
+		<br />
+	</div>
+	<br />
+
+	<div id="Equipment_Result" class="card" style="margin-left: 20px;">
+		<!-- The filtered data will be loaded dynamically using AJAX -->
+	</div>
+</div>
+<script src='https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js'></script>

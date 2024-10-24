@@ -1,0 +1,19 @@
+﻿@model OrganizationView
+@if (Model != null)
+{
+	<div class="row top">
+	<div class="card medium">
+	<h3><i class="icon-briefcase icon-1x">&nbsp;</i>Cliente</h3>
+	<form method="post" id="Organization_Form">
+		<input type="hidden" asp-for="Id" />
+		<label asp-for="Descr">Nombre</label>
+		<input type="text" asp-for="Descr" class="Organization_Input uppercase" />
+		<label asp-for="ManagerPhone">Teléfono Jefe de Area</label>
+		<input type="text" asp-for="ManagerPhone" class="Organization_Input">
+		<label asp-for="SupervisorPhone">Teléfono Supervisor de Area</label>
+		<input type="text" asp-for="SupervisorPhone" class="Organization_Input" />
+		<input type="button" value="Enviar" class="Organization_Input" />
+	</form>
+	</div>
+	</div>
+}

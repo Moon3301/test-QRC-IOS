@@ -1,0 +1,21 @@
+﻿@{
+	Layout = "/Pages/Shared/_Layout.cshtml";
+}
+@section styles {
+	@RenderSection("styles", false)
+}
+<main class="row top">
+	<div class="card small center">
+		<a href="javascript:void(0)" onclick="history.back()"><span class='close'>&times;</span></a>
+		<h3>@ViewData["Title"]</h3>
+		@RenderBody()
+	</div>
+	<br /><br />
+</main>
+@section scripts {
+	@{
+		await Html.RenderPartialAsync("~/Pages/Shared/_Validation.cshtml");
+	}
+
+	@RenderSection("scripts", false)
+}

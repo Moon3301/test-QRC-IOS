@@ -1,0 +1,20 @@
+﻿@model List<LaborView>
+<div>
+	<table id="table" class="table">
+		<thead>
+			<tr>
+				<th><a href="javascript:Create('Labor')"><i class="icon-file-plus icon-1x"></i></a></th>
+				<th class="max"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td><a href="javascript:Update('Labor', @item.Id)"><i class="icon-edit icon-1x"></i></a></td>
+					<td class="max">@item.Descr</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

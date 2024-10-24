@@ -1,0 +1,65 @@
+﻿@model Pagination
+<div class="center">
+    <input type="hidden" asp-for="PageIndex" />
+    <input type="hidden" asp-for="PageSize" />
+    <input type="hidden" asp-for="PageCount" />
+    <input type="hidden" asp-for="Entity" />
+    @{
+        var current = Model.PageIndex;
+        var total = Model.PageCount;
+        var visibleLinks = 10; // Number of page links to display
+        var halfVisibleLinks = visibleLinks / 2;
+        var start = current - halfVisibleLinks;
+        var end = current + halfVisibleLinks;
+
+        if (start < 1)
+        {
+            end += 1 - start;
+            start = 1;
+        }
+        if (end > total)
+        {
+            end = total;
+            if (end - visibleLinks + 1 > 0)
+            {
+                start = end - visibleLinks + 1;
+            }
+            else
+            {
+                start = 1;
+            }
+        }
+    }
+    <ul class="pagination">
+        @if (start > 1)
+        {
+            <li><a href="javascript:Filter('@Model.Entity', 1)">1</a></li>
+
+            @if (start > 2)
+            {
+                <li><span>...</span></li>
+            }
+        }
+
+        @for (var pageIndex = start; pageIndex <= end; pageIndex++)
+        {
+            if (pageIndex == current)
+            {
+                <li class="active"><span>@pageIndex</span></li>
+            }
+            else
+            {
+                <li><a href="javascript:Filter('@Model.Entity', @pageIndex)">@pageIndex</a></li>
+            }
+        }
+
+        @if (end < total)
+        {
+            @if (end < total - 1)
+            {
+                <li><span>...</span></li>
+            }
+            <li><a href="javascript:Filter('@Model.Entity', @total)">@total</a></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,25 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = "_Layout.cshtml";
+}
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="error"></div>
+    <label asp-for="Input.User">Email</label>
+    <span asp-validation-for="Input.User" class="error"></span>
+
+    <input asp-for="Input.User" />
+    <label asp-for="Input.Password">Password</label>
+    <span asp-validation-for="Input.Password" class="error"></span>
+
+    <input asp-for="Input.Password" />
+    <br />
+    <span>
+        <a rel="nofollow" href="forgot">¿Olvidaste Tu Contraseña?</a>
+    </span>
+    <br />
+    <button type="submit">Entrar</button><span>&nbsp;</span>
+    <a href="~/Security/Identity/Register" rel="nofollow" class="button">Registrar</a>
+    <br />
+    <input asp-for="Input.RememberMe" type="checkbox" checked />&nbsp;<span>Recordarme</span>
+</form>

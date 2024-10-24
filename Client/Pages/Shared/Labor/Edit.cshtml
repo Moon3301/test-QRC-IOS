@@ -1,0 +1,15 @@
+﻿@model LaborView
+@if (Model != null)
+{
+	<h3><i class="icon-tools-linear icon-1x">&nbsp;</i>Tarea</h3>
+	<form method="post" id="Labor_Form">
+		<input type="hidden" asp-for="Id" />
+			<label asp-for="Descr">Descripción</label>
+			<input type="text" asp-for="Descr" class="Labor_Input" />
+
+		@if (Model != null && Model.Id == 0)
+		{
+			<input type="button" value="Enviar" class="Labor_Input" />
+		}
+	</form>
+}

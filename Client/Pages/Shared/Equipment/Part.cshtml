@@ -1,0 +1,18 @@
+﻿@model List<PartView>
+<h5>Valores Nominales</h5>
+<div>
+	@{
+		if (Model != null)
+		{
+			int index = 0;
+			foreach (PartView item in Model)
+			{
+				index++;
+				<div class="one_fifth">
+					<lebel>@item.Descr</lebel>
+					<input type="number" step=".01" id="@item.Id" equipment="@item.EquipmentId" Part="@item.PartId" value="@item.NominalValue.ToString("0.##")" onchange="EquipmentPartUpdate(this)" />
+				</div>
+			}
+		}
+	}
+</div>

@@ -1,0 +1,12 @@
+﻿@page "{email}"
+@model EmailModel
+@{ 
+	Layout = "_Layout.cshtml";
+    ViewData["Title"] = "Email Enviado"; 
+}
+		<p>
+	<a rel="nofollow" target="_blank" href="@Model.EmailServer">Revisa tu email.</a>
+	<br />
+			Si el mensaje no está en tu bandeja de entrada puede llegar a la carpeta de correo no deseado.
+		</p>
+	

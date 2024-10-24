@@ -1,0 +1,92 @@
+﻿@page
+@model Client.Pages.MaintenanceModel
+@{
+    var currentYear = DateTime.UtcNow.Year;
+    var monthNames = new Dictionary<int, string>()
+    {
+        { 1, "Enero" },
+        { 2, "Febrero" },
+        { 3, "Marzo" },
+        { 4, "Abril" },
+        { 5, "Mayo" },
+        { 6, "Junio" },
+        { 7, "Julio" },
+        { 8, "Agosto" },
+        { 9, "Septiembre" },
+        { 10, "Octubre" },
+        { 11, "Noviembre" },
+        { 12, "Diciembre" }
+    };
+}
+<div class="center">
+    <h3>Mantenimientos</h3>
+</div>
+<div class="card large center">
+    <form method="post" id="Maintenance_Form">
+        <input asp-for="Input.Id" type="hidden" />
+        <div class="one_quarter">
+            <label asp-for="Input.OrganizationId">Cliente</label>
+            <select asp-for="Input.OrganizationId" asp-items="Model.OrganizationSelect" class="Maintenance_Input">
+                <option value="0">Selecciona</option>
+            </select>
+        </div>
+        <div class="one_quarter">
+            <label asp-for="Input.CategoryId">Tipo de Equipo</label>
+            <select asp-for="Input.CategoryId" asp-items="Model.CategorySelect" class="Maintenance_Input">
+                <option value="0">Selecciona</option>
+            </select>
+        </div>
+        <div class="one_quarter">
+            <label>Mes</label>
+            <select id="month" asp-for="Input.Month" class="Maintenance_Input">
+                @foreach (var month in monthNames)
+                {
+                    if (month.Key == DateTime.UtcNow.Month)
+                    {
+                        <option value="@month.Key" selected>@month.Value</option>
+                    }
+                    else
+                    {
+                        <option value="@month.Key">@month.Value</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="one_quarter">
+            <label>Año</label>
+            <select id="year" asp-for="Input.Year" class="Maintenance_Input">
+                @for (var year = currentYear - 6; year <= currentYear; year++)
+                {
+                    if (year == DateTime.UtcNow.Year)
+                    {
+                        <option value="@year" selected>@year</option>
+                    }
+                    else
+                    {
+                        <option value="@year">@year</option>
+                    }
+                }
+            </select>
+        </div>
+    </form>
+
+    <div id="Maintenance_Result">
+        @{
+            await Html.RenderPartialAsync("Maintenance/Result", Model.Result);
+        }
+    </div>
+</div>
+@section scripts{
+    <script async defer>
+        $(document).ready(function () {
+            $('.Maintenance_Input').on('change', function () {                
+                MaintenanceFilter();
+            });
+
+            $('#Input_OrganizationId').on('change', function () {
+                CategoryCollection();
+                MaintenanceFilter();
+            });
+        });
+    </script>
+}

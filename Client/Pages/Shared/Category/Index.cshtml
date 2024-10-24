@@ -1,0 +1,32 @@
+﻿@model List<CategoryView>
+<div>
+	<table id="table" class="table">
+		<thead>
+			<tr>
+				<th><a href="javascript:Create('Category')"><i class="icon-file-plus icon-1x"></i></a></th>
+				<th class="max">Tipo de Equipo</th>
+				<th>Tareas</th>
+				<th>Mediciones</th>
+				<th>Partes</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td><a href="javascript:Update('Category', @item.Id)"><i class="icon-edit icon-1x"></i></a></td>
+					<td class="max">@item.Descr</td>
+					<td>
+						<a href="javascript:Association('Category', 'Labor', @item.Id)"><i class="icon-tools-linear icon-1x"></i></a>
+					</td>
+					<td>
+						<a href="javascript:Association('Category', 'Step', @item.Id)"><i class="icon-speedometer-linear icon-1x"></i></a>
+					</td>
+					<td>
+						<a href="javascript:Association('Category', 'Part', @item.Id)"><i class="icon-puzzle-linear icon-1x"></i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

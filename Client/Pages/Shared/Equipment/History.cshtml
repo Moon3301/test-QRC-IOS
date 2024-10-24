@@ -1,0 +1,64 @@
+﻿@model HistoryView
+<div class="card medium center">
+	@{
+		await Html.RenderPartialAsync("Pagination", Model.Maintenances.Pages);
+		var allowed = User.IsInRole("Administrador") || User.IsInRole("Supervisor");
+	}
+	@if (Model != null)
+	{
+		<br />
+		<div class="four_fifth">
+			<small>Descripción: </small><span>@Model.Equipment.Descr</span>
+		</div>
+		<div class="two_third">
+			<small>Ubicación: </small><span>@Model.Equipment.Location</span>
+			<br />
+		</div>
+		<div class="one_third">
+			<small>Serie: </small><span>@Model.Equipment.Serial</span>
+		</div>
+		<br />
+		<span class="center">
+			<a class="button" href="javascript:EquipmentPrint(@Model.Equipment.Id)"><i class="icon-printer icon-1x">&nbsp;</i>Imprimir Historial</a>
+		</span>
+<br />
+		<table id="table" class="table">
+			<thead>
+				<tr>
+					<th class="left">Fecha</th>
+					<th class="left">Técnico</th>
+					<th class="left">Observaciones</th>
+					@if (allowed)
+					{
+						<th>OT</th>
+					}
+					<th>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				@{
+					int index = 0;
+					foreach (MaintenanceView item in Model.Maintenances.Items)
+					{
+						index++;
+						<tr>
+							<td>
+								@item.Finished.Value.ToString("d/ M/ yyyy")
+							</td>
+							<td class="left">@item.TechnicianName</td>
+							<td class="left">@item.Observation</td>
+							@if (allowed)
+							{
+								<td><a href="javascript:Work(@item.Id)"><i class="icon-clipboard icon-1x"></i></a></td>
+							}
+							<td>
+								<a href="javascript:Print(@item.Id)"><i class="icon-printer icon-1x"></i></a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	}
+</div>

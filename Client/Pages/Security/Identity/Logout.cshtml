@@ -1,0 +1,15 @@
+﻿@page
+@model LogoutModel
+
+@{ 
+    ViewData["Title"] = "Salida"; 
+}
+<div class="row">
+	<div class="card small">
+		<a href="javascript:history.back()"><span class='close'>&times;</span></a>
+		<h1>@ViewData["Title"]</h1>
+		<hr />
+<p>Has salido con éxito de la aplicación.</p>
+
+	</div>
+</div>

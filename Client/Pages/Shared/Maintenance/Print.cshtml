@@ -1,0 +1,801 @@
+﻿@model PrintView
+@{
+	System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("es-CL");
+	var accreditation = Model.Maintenance.Equipment.Category.ToUpper() != "FAN COIL" && Model.Maintenance.Equipment.Accreditation;
+}
+<style>
+	html
+	{
+		font-family: Calibri;
+		font-size: 17px !important;
+	}
+
+	body
+	{
+		margin: 20px;
+	}
+
+	section
+	{
+		padding-bottom: 10px;
+		vertical-align: bottom;
+	}
+
+	br{
+		clear: both;
+	}
+
+	.ot
+	{
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	.break
+	{
+		page-break-before: always;
+	}
+
+	table
+	{
+		table-layout: auto;
+		width: 100%;
+		font-family: Calibri;
+		font-size: 17px !important;
+		border-collapse: collapse;
+		bottom: 0;
+		vertical-align: bottom !important;
+		line-height: normal;
+	}
+
+	table tr td
+	{
+		text-align: center;
+		padding: 4px;
+		min-width: 75px;
+	}
+
+
+	/* Apply min-width to the first <td> if there are exactly 3 <td> elements */
+	table tr td:first-child:nth-last-child(3)
+	{
+		min-width: 150px;
+	}
+
+	/* Apply min-width to the second <td> if there are exactly 3 <td> elements */
+	table tr td:nth-child(2):nth-last-child(2)
+	{
+		min-width: 150px;
+	}
+
+	/* Apply min-width to the third <td> if there are exactly 3 <td> elements */
+	table tr td:nth-child(3):last-child
+	{
+		min-width: 150px;
+	}
+
+
+
+
+	td.width1
+	{
+		width: 25% !important;
+		padding: 4px;
+	}
+
+	td.width2
+	{
+		width: 75% !important;
+		padding: 4px;
+	}
+
+	td.width3
+	{
+		width: 45% !important;
+	}
+
+	td.width4
+	{
+		width: 55% !important;
+	}
+
+
+	.part{
+		white-space: nowrap !important;
+		width: 100%;
+	}
+
+	.measurement1
+	{
+		width: 60% !important;
+	}
+
+	.measurement2
+	{
+		width: 60% !important;
+	}
+
+	.measurement3
+	{
+		width: 100% !important;
+	}
+
+	.border
+	{
+		border: 1px solid black;
+	}
+
+
+
+
+	hr
+	{
+		height: 1px !important;
+		margin: 6px 0;
+		clear: both;
+		border-top: 1px solid #000;
+		box-shadow: none;
+	}
+
+	.left
+	{
+		align-content: flex-start;
+		text-align: left;
+	}
+
+
+
+	.right
+	{
+		align-content: flex-end;
+		text-align: right;
+	}
+
+	.float_left
+	{
+		float: left;
+	}
+
+	.float_right
+	{
+		float: right;
+	}
+
+	.clear
+	{
+		clear: both;
+	}
+
+	.center
+	{
+		align-content: center;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.center_text
+	{
+		align-content: center;
+		text-align: center;
+	}
+
+	.top
+	{
+		vertical-align: top !important;
+	}
+
+	.bottom
+	{
+		vertical-align: top !important;
+	}
+
+	.one_half, .one_third, .two_third, .one_quarter, .two_quarter, .three_quarter
+	{
+		display: inline-block;
+		vertical-align: bottom;
+		height: auto;
+	}
+
+	.one_half
+	{
+		width: 47%;
+		margin: 0 1%;
+	}
+
+	.one_third
+	{
+		width: 30%;
+		margin: 0 1%;
+	}
+
+	.two_third
+	{
+		width: 60%;
+		margin: 0 1%;
+	}
+
+	.one_quarter
+	{
+		width: 22%;
+		margin: 0 1%;
+	}
+
+	.two_quarter
+	{
+		width: 40%;
+	}
+
+	.three_quarter
+	{
+		width: 66%;
+	}
+
+
+	.circle
+	{
+		margin: 0;
+		width: auto !important;
+		width: 20px !important;
+		text-align: right;
+		vertical-align: middle;
+	}
+
+	.circle span
+	{
+		text-align: right;
+		padding: 6px;
+		background-color: red;
+		border-radius: 50%;
+		display: inline-block;
+	}
+
+</style>
+<body>
+	<section>
+		<div style="width:40%; display: inline-block; vertical-align: middle;">
+			@if (accreditation)
+			{
+				<span class="circle" style="vertical-align:middle"><span style="vertical-align:middle"></span>&nbsp;</span>
+			}
+			<img style="width:200px; display:inline-block; vertical-align: middle" src="@string.Format("{0}/images/QRCLEANER.png", Model.BaseUrl)" />
+		</div>
+		<div style="width: 40%; display: inline-block; vertical-align: middle;">
+			<span class="ot">ORDEN DE TRABAJO</span>
+		</div>
+	</section>
+	<section>
+		<div class="one_half">
+			<table style="width: 100%">
+				<tr>
+					<td class="left width1">Equipo</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Category.ToUpper()</td>
+				</tr>
+				<tr>
+					<td class="left width1">Ubicación</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Location.ToUpper()</td>
+				</tr>
+				<tr>
+					<td class="left width1">Descripción</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Descr.ToUpper()</td>
+				</tr>
+				<tr>
+					<td class="left width1">Marca</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Brand.ToUpper()</td>
+				</tr>
+				<tr>
+					<td class="left width1">Modelo</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Model.ToUpper()</td>
+				</tr>
+				<tr>
+					<td class="left width1">Serie</td>
+					<td class="border width2">@Model.Maintenance.Equipment.Serial.ToUpper()</td>
+				</tr>
+			</table>
+		</div>
+		<div class="one_half">
+			<table class="float_right" style="width: 78%">
+				@if (Model.Maintenance.Equipment.Category.ToUpper() == "FAN COIL")
+				{
+					<tr>
+						@if (accreditation)
+						{
+							<td></td>
+						}
+						<td class="left width3">Correlativo de Fan Coil</td>
+						<td class="border width4">@Model.Maintenance.Equipment.QR</td>
+					</tr>
+				}
+				<tr>
+					@if (accreditation)
+					{
+						<td class="circle"><span></span></td>
+					}
+					<td class="left width3">N° de Activo Fijo</td>
+					<td class="border width4">@Model.Maintenance.Equipment.Asset.ToUpper()</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td></td>
+					}
+					<td class="width3" style="padding: 5px;">&nbsp;</td>
+					<td class="width4" style="padding: 5px;">&nbsp;</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td></td>
+					}
+					<td class="left width3">N° OT</td>
+					<td class="border width4">@Model.Maintenance.Id</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td></td>
+					}
+					<td class="left width3">Edificio</td>
+					<td class="border width4">@Model.Maintenance.Equipment.Building.ToUpper()</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td class="circle"><span></span></td>
+					}
+					<td class="left width3">Período Ejecución</td>
+					<td class="border width4">@Model.Maintenance.Finished.Value.ToString("MMMM yyyy", culture).ToUpper()</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td></td>
+					}
+					<td class="left width3">Area</td>
+					<td class="border width4">Mantención</td>
+				</tr>
+			</table>
+		</div>
+	</section>
+	<section>
+		<div class="one_half">
+			<table style="width: 100%">
+				<tbody>
+					@{
+						int index = 0;
+						var labors = Model.LaborCollection;
+						foreach (LaborView item in labors)
+						{
+							index++;
+							<tr>
+								<td class="left" style="width: auto; text-transform: initial;">
+									@item.Descr
+								</td>
+								@if (accreditation)
+								{
+									<td class="circle" style="min-width: 20px !important">
+										@if (item.Accreditation)
+										{
+											<span></span>
+										}
+									</td>
+								}
+								<td class="border" style="min-width: 60px; text-transform: initial; ">
+									@if (item.Finished)
+									{
+										<span>&#10004;</span>
+									}
+									else
+									{
+										<span>N/A</span>
+									}
+								</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="one_half">
+			@if (Model.MeasurementHierarchy.Count == 3)
+			{
+					var measurement = Model.MeasurementHierarchy.First();
+					<table class="measurement1 float_right">
+						<tr>
+						@if (accreditation)
+						{
+							<td class="circle" style="width: auto !important"><span></span></td>
+						}
+						<td colspan="2" class="border">@measurement.MeasurementDescr</td>
+						</tr>
+
+						@foreach (var step in @measurement.Steps)
+						{
+						var measurementValue = (step.MeasurementValue != null && step.MeasurementValue != 0) ? @step.MeasurementValue?.ToString("0.##") : "N/A";
+
+							<tr>
+							@if (accreditation)
+							{
+								<td class="circle"></td>
+							}
+
+								@if (step.Descr == "")
+								{
+									<td class="border">@measurement.MeasurementDescr</td>
+									<td class="border">@measurementValue</td>
+								}
+								else
+								{
+									<td class="border">@step.Descr</td>
+									<td class="border">@measurementValue</td>
+								}
+							</tr>
+						}
+					</table>
+			}
+
+		</div>
+		<br />
+		<br />
+		@{
+			var measurementId = 0;
+			var partId = 0;
+			var stepId = 0;
+			index = 0;
+			var measurementWidth = "";
+		}
+		@foreach (var measurement in Model.MeasurementHierarchy)
+		{
+			bool triphasic = measurement.MeasurementId == 3 && measurement.Parts[0] != null && measurement.Parts[0].Steps.Where(_ => _.Descr == "R").FirstOrDefault() != null;
+			bool emptyStep = measurement.Steps.Where(_ => _.Descr == "").FirstOrDefault() != null;
+
+			int stepCount = measurement.Steps.Count();
+			if (stepCount == 0)
+			{
+				stepCount = measurement.Parts[0].Steps.Count();
+			}
+			int span = (stepCount > 1) ? stepCount : stepCount + 1;
+			if (measurement.MeasurementId == 1) span = 2;
+
+
+
+			index++;
+			var even = index % 2 == 0;
+			var css = even ? "float_right" : "float_left";
+			
+			var count = Model.MeasurementHierarchy.Count();
+			if ( count == 1 || (count == 3 && measurement.MeasurementId == 1))
+			{
+				css = "float_right";
+				index++;
+			}
+			if (count == 1)
+			{
+				css = "float_right";
+			}
+			if (count == 1 && measurement.MeasurementId == 3)
+			{
+				css = "float_left";
+			}
+			if (count == 3 && measurement.MeasurementId == 2)
+			{
+				css = "float_left";
+			}
+			if (count == 3 && measurement.MeasurementId == 3)
+			{
+				css = "float_right";
+			}
+
+			if (Model.Maintenance.Equipment.Category.ToUpper() == "PURIFICADOR")
+				css = "float_left";
+
+			measurementWidth = $"measurement{measurement.MeasurementId}";
+			@if (count < 3 || measurement.MeasurementId != 1)
+			{
+				if (measurement.MeasurementId == 2 &&(Model.Maintenance.Equipment.Category.ToUpper() == "CORTINA DE AIRE"
+				|| Model.Maintenance.Equipment.Category.ToUpper() == "UNIDAD MANEJADORA DE AIRE"
+				|| Model.Maintenance.Equipment.Category.ToUpper() == "VENTILADOR EXTRACTOR DE AIRE"
+				|| Model.Maintenance.Equipment.Category.ToUpper() == "VENTILADOR INYECTOR DE AIRE"
+				|| Model.Maintenance.Equipment.Category.ToUpper() == "CORTINA DE AIRE"))
+				{
+					<div class="one_half"></div>
+					<div class="one_half">
+						<table style="width: 100%" class="float_right">
+						<tr>
+							<td></td>
+							@foreach (var step in measurement.Steps)
+							{
+								<td>@step.Descr</td>
+							}
+						</tr>
+						<tr>
+								<td class="border">@measurement.MeasurementDescr</td>
+
+							@foreach (var step in measurement.Steps)
+							{
+									var measurementValue = (step.MeasurementValue != null && step.MeasurementValue != 0) ? @step.MeasurementValue?.ToString("0.##") : "N/A";
+									<td class="border">@measurementValue</td>
+							}
+						</tr>
+					</table>
+					</div>
+					<br />
+					<br />
+					<div class="one_half"></div>
+					
+		}
+				else
+				{
+					<div class="one_half">
+						<table class="@css @measurementWidth">
+							<tr>
+								@if (measurement.MeasurementId == 3)
+								{
+									@if (triphasic)
+									{
+										<td style="width: auto"></td>
+
+										<td style="width: auto" colspan="2"></td>
+									}
+									else
+									{
+										<td style="width: auto"></td>
+									}
+								}
+								@if (!emptyStep
+										&& ((Model.Maintenance.Equipment.Category.ToUpper() != "UNIDAD MANEJADORA DE AIRE"
+										&& Model.Maintenance.Equipment.Category.ToUpper() != "VENTILADOR EXTRACTOR DE AIRE"
+										&& Model.Maintenance.Equipment.Category.ToUpper() != "VENTILADOR INYECTOR DE AIRE"
+										&& Model.Maintenance.Equipment.Category.ToUpper() != "CORTINA DE AIRE")
+										|| measurement.MeasurementId != 2)
+										&& Model.Maintenance.Equipment.Category.ToUpper() != "PURIFICADOR"
+										)
+								{
+									@if (measurement.MeasurementId != 2 && accreditation)
+											{
+										<td class="circle"><span></span></td>
+									}
+									<td colspan="@span" style="width: auto !important;" class="border">@measurement.MeasurementDescr</td>
+								}
+							</tr>
+							@if (measurement.MeasurementId == 1 && count < 3)
+							{
+								@foreach (var step in measurement.Steps)
+								{
+									var measurementValue = (step.MeasurementValue != null && step.MeasurementValue != 0) ? @step.MeasurementValue?.ToString("0.##") : "N/A";
+									<tr>
+										@if (step.Descr == "")
+										{
+											<td class="border">@measurement.MeasurementDescr</td>
+											<td class="border"></td>
+										}
+										else
+										{
+											<td class="border">@step.Descr</td>
+											<td class="border">@measurementValue</td>
+										}
+									</tr>
+								}
+							}
+							@if (measurement.MeasurementId == 2)
+							{
+								if (emptyStep)
+								{
+									<tr>
+										@foreach (var step in measurement.Steps)
+										{
+											@if (!emptyStep)
+											{
+												<td style="white-space: nowrap; width: 60px !important">@step.Descr</td>
+											}
+										}
+									</tr>
+									<tr>
+										<td class="border">@measurement.MeasurementDescr</td>
+
+										@foreach (var step in measurement.Steps)
+										{
+											var measurementValue = (step.MeasurementValue != null && step.MeasurementValue != 0) ? @step.MeasurementValue?.ToString("0.##") : "N/A";
+
+											<td class="border">@measurementValue</td>
+										}
+									</tr>
+
+								}
+								else
+								{
+									<tr>
+										@if (measurement.MeasurementId != 2 && accreditation)
+										{
+											<td class="circle"></td>
+										}
+										@foreach (var step in measurement.Steps)
+										{
+											<td class="border">@step.Descr</td>
+										}
+									</tr>
+									<tr>
+										@if (measurement.MeasurementId != 2 && accreditation)
+										{
+											<td class="circle"></td>
+										}
+										@foreach (var step in measurement.Steps)
+										{
+											var measurementValue = (step.MeasurementValue != null && step.MeasurementValue != 0) ? @step.MeasurementValue?.ToString("0.##") : "N/A";
+											<td class="border">@measurementValue</td>
+										}
+									</tr>
+								}
+							}
+							@if (measurement.MeasurementId == 3)
+							{
+								if (Model.Maintenance.Equipment.Category.ToUpper() == "PURIFICADOR")
+								{
+									<tr>
+										<td></td>
+										@foreach (var step in measurement.Parts[0].Steps)
+										{
+											<td>@step.Descr</td>
+										}
+									</tr>
+									<tr>
+										<td class="border">@measurement.MeasurementDescr</td>
+										@foreach (var part in measurement.Parts)
+										{
+											@foreach (var step in part.Steps)
+											{
+												<td class="border">
+													@{
+														if (step.MeasurementValue != null && step.MeasurementValue != 0)
+														{
+															step.MeasurementValue?.ToString("0.##");
+														}
+													}
+												</td>
+											}
+										}
+									</tr>
+								}
+								else
+								{
+									<tr>
+										@if (measurement.MeasurementId != 2 && accreditation)
+										{
+											<td class="circle" style="width: auto !important"></td>
+										}
+										<td></td>
+
+										@if (triphasic)
+										{
+											<td>Trif</td>
+											<td>Mono</td>
+										}
+										@foreach (var step in measurement.Parts[0].Steps)
+										{
+											<td class="border">@step.Descr</td>
+										}
+									</tr>
+
+
+									var counter = 0;
+
+									@foreach (var part in measurement.Parts)
+									{
+										counter++;
+										bool mono = false;
+											bool unmeasured = false;
+
+											var electricity = part.Steps.Where(_ => _.Descr == "R" || _.Descr == "S" || _.Descr == "T");
+										unmeasured = electricity.Where(_ => _.MeasurementValue == null || _.MeasurementValue == 0).Count() == 3;
+										mono = electricity.Where(_ => _.MeasurementValue != null && _.MeasurementValue != 0).Count() != 3;
+
+											<tr>
+											@if (measurement.MeasurementId != 2 && accreditation)
+											{
+													<td class="circle"></td>
+											}
+											
+												<td class="right part">@part.Descr</td>
+												@if (triphasic)
+												{
+													<td class="border">@if (!unmeasured && !mono)
+														{
+															<span>&#10004</span>
+														}
+													</td>
+												<td class="border">
+														@if (!unmeasured && mono)
+														{
+															<span>&#10004</span>
+														}
+													</td>
+												}
+												@foreach (var step in part.Steps)
+												{
+													<td class="border">
+													@if (step.MeasurementValue != null && step.MeasurementValue != 0)
+														{
+															@step.MeasurementValue?.ToString("0.##")
+														}
+													</td>
+												}
+											</tr>
+										}
+								}
+							}
+						</table>
+					</div>
+
+				}
+			}
+		}
+	</section>
+	<section>
+		<div style="margin: 0 1%">
+			<table style="width: 98%; margin: 0 3px" >
+				<tr class="border">
+					<td class="left" style="width: 10%"><strong>Observaciones:</strong></td>
+					<td class="left" src="width: 90%">SE REALIZA MANTENCIÓN PREVENTIVA.</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="border left">
+						<br />
+						@if (Model.Maintenance.ObservationVisibleInPdf)
+						{
+							<span>@Model.Maintenance.Observation.ToUpper()</span>
+						}
+						<br />
+					</td>
+				</tr>
+			</table>
+		</div>
+	</section>
+
+	<section>
+		<div class="one_third">
+			<table><tr><td class="left">Fecha Mantención:</td><td class ="right">@Model.Maintenance.Finished.Value.ToString("dd-MM-yyyy")</td></tr></table>
+			<hr />
+		</div>
+		<br />
+		<br />
+		<div class="one_third">
+			<table style="width:100%">
+				<tr>
+					@if (accreditation)
+					{
+						<td class="circle" style="min-width: 20px !important"><span></span></td>
+					}
+					<td class="left">Técnico 1</td>
+					<td class="border center_text">@Model.Maintenance.TechnicianName</td>
+				</tr>
+				<tr>
+					@if (accreditation)
+					{
+						<td class="circle" style="min-width: 20px !important"></td>
+					}
+					<td class="left">Técnico 2</td>
+					<td class="border center_text">@Model.Maintenance.HelperName</td>
+				</tr>
+			</table>
+		</div>
+	</section>
+	<section>
+		<div class="one_third center">
+			<img class="center" src="@string.Format("{0}/images/{1}.png", Model.BaseUrl, Model.Maintenance.TechnicianId)" height="150" />
+			<hr />
+			<span class="center center_text">Firma Técnico</span>
+		</div>
+		<div class="one_third center">
+			<img class="center" src="@string.Format("{0}/images/{1}.png", Model.BaseUrl, Model.Maintenance.SupervisorId)" height="150" />
+			<hr />
+			<span class="center center_text">V° B° Supervisor QR Cleaner Ingeniería</span>
+		</div>
+		<div class="one_third center">
+			<img class="center" src="@string.Format("{0}/images/Transparent.png", Model.BaseUrl)" height="150" />
+			<hr />
+			@{
+				var client = (Model.Maintenance.Equipment.OrganizationId == 1) ? "Clínica" : "Cliente"; 
+			}
+			<span class="center center_text">V° B° Responsable @client</span>
+		</div>
+	</section>
+</body>
